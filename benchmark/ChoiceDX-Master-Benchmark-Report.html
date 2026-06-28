@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChoiceDX Master Benchmark · 3-Brand Discoverability Report</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  --ink:#14181C; --t1:#2A3037; --t2:#4C555E; --t3:#6C757D; --muted:#9AA1A9;
+  --line:#EAEDF0; --line2:#DFE3E7; --rule:#14181C; --soft:#FAFAFB; --hover:#F4F6F8;
+  --blue:#244A86; --blue-deep:#1A3866; --blue-soft:#F1F5FC;
+  --red:#E8392E; --red-soft:#FDF1F0;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:"Pretendard",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  --nav:288px; --toc:236px; --headh:78px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+*{scrollbar-width:thin;scrollbar-color:#E5E8EB transparent;}
+*::-webkit-scrollbar{width:10px;height:10px;}
+*::-webkit-scrollbar-track{background:transparent;}
+*::-webkit-scrollbar-thumb{background:#E9ECEF;border-radius:8px;border:2px solid #fff;}
+*::-webkit-scrollbar-thumb:hover{background:#D8DCE1;}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--t2);background:#fff;font-size:15.5px;line-height:1.78;
+  -webkit-font-smoothing:antialiased;letter-spacing:-0.011em;word-break:keep-all;overflow-wrap:break-word;
+  font-feature-settings:"ss01";}
+
+.layout{display:grid;grid-template-columns:var(--nav) 1fr;max-width:1540px;margin:0 auto;}
+
+/* nav */
+.docnav{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;
+  border-right:1px solid var(--line);padding:26px 18px 60px;background:#fff;}
+.search-label{font-size:11px;color:var(--muted);font-weight:600;margin:4px 8px 9px;}
+.search-box{width:100%;background:var(--hover);border:1px solid transparent;border-radius:8px;
+  padding:11px 13px;font-family:var(--sans);font-size:13.5px;color:var(--t1);outline:none;transition:.14s;}
+.search-box::placeholder{color:var(--muted);}
+.search-box:focus{background:#fff;border-color:var(--line2);box-shadow:0 0 0 3px var(--hover);}
+.doclist{margin-top:22px;display:flex;flex-direction:column;gap:1px;}
+.docitem{display:block;text-decoration:none;padding:8px 12px;border-radius:8px;transition:.14s;border-left:2px solid transparent;}
+.docitem .t{font-size:13.5px;font-weight:600;color:var(--t1);line-height:1.4;}
+.docitem .f{font-size:10.5px;color:var(--muted);font-family:var(--mono);margin-top:1px;letter-spacing:-0.02em;}
+.docitem:hover{background:var(--hover);}
+.docitem.active{background:transparent;border-left-color:var(--ink);}
+.docitem.active .t{color:var(--ink);font-weight:700;}
+.docitem.active .f{color:var(--t3);}
+.docitem.hidden{display:none;}
+.doc-group{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:22px 14px 7px;}
+.doc-group:first-of-type{margin-top:12px;}
+
+/* right */
+.right{min-width:0;}
+.dochead{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.82);backdrop-filter:saturate(180%) blur(14px);
+  -webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;
+  gap:20px;padding:16px 56px;height:var(--headh);}
+.dochead .eyebrow{font-size:10.5px;letter-spacing:.13em;font-weight:700;color:var(--t3);text-transform:uppercase;}
+.dochead .dtitle{font-size:23px;font-weight:800;color:var(--ink);letter-spacing:-0.035em;line-height:1.2;margin-top:3px;}
+.src-btn{flex:none;background:var(--ink);border:1px solid var(--ink);color:#fff;font-family:var(--sans);
+  font-weight:700;font-size:12.5px;padding:9px 17px;border-radius:8px;cursor:pointer;transition:.14s;white-space:nowrap;}
+.src-btn:hover{background:#000;}
+
+.docbody{display:grid;grid-template-columns:minmax(0,1fr) var(--toc);}
+.content{min-width:0;padding:16px 56px 110px;max-width:880px;}
+
+/* toc */
+.toc{position:sticky;top:var(--headh);align-self:start;height:calc(100vh - var(--headh));overflow-y:auto;padding:34px 22px 60px;}
+.toc-title{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:14px;letter-spacing:.1em;text-transform:uppercase;}
+.toc-list{display:flex;flex-direction:column;gap:1px;border-left:1px solid var(--line2);}
+.toc-list a{text-decoration:none;font-size:12px;color:var(--t3);padding:6px 0 6px 14px;margin-left:-1px;
+  border-left:1px solid transparent;line-height:1.45;transition:.14s;}
+.toc-list a:hover{color:var(--t1);}
+.toc-list a.active{color:var(--ink);border-left-color:var(--ink);font-weight:600;}
+.toc-empty{font-size:12px;color:var(--muted);padding-left:14px;}
+
+/* typography — editorial */
+section{padding:76px 0 8px;scroll-margin-top:calc(var(--headh) + 20px);}
+section + section{border-top:1px solid var(--line);}
+.kicker{font-size:11px;letter-spacing:.16em;color:var(--t3);font-weight:700;font-family:var(--mono);text-transform:uppercase;}
+h2{font-size:34px;font-weight:800;letter-spacing:-0.04em;line-height:1.14;margin:14px 0 10px;color:var(--ink);}
+.lead-sec{font-size:17px;color:var(--t3);max-width:680px;margin-bottom:8px;line-height:1.6;font-weight:400;}
+h3{font-size:19px;font-weight:800;letter-spacing:-0.025em;margin:48px 0 14px;color:var(--ink);
+  scroll-margin-top:calc(var(--headh) + 20px);padding-bottom:0;}
+h4{font-size:14px;font-weight:700;color:var(--t1);margin:26px 0 8px;letter-spacing:-0.01em;}
+p{margin:14px 0;color:var(--t2);}
+strong{color:var(--ink);font-weight:700;}
+ul,ol{margin:14px 0 14px 2px;padding-left:20px;color:var(--t2);}
+li{margin:7px 0;}
+li::marker{color:var(--muted);}
+code{font-family:var(--mono);font-size:.84em;background:var(--hover);padding:2px 6px;border-radius:5px;color:var(--t1);}
+
+/* cards → rule-based, no fill */
+.card{border:none;border-left:2px solid var(--line2);border-radius:0;background:none;box-shadow:none;
+  padding:4px 0 4px 22px;margin:26px 0;}
+.card .ct{font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:9px;display:block;}
+.card .ct::before{content:none;}
+.card p{margin:8px 0;font-size:15px;color:var(--t2);}
+.card p:first-of-type{color:var(--t1);}
+.card ul{margin:8px 0 2px;}
+.card.point{border-left-color:var(--blue);}
+.card.point .ct{color:var(--blue-deep);}
+.card.alert{border-left-color:var(--red);}
+.card.alert .ct{color:var(--red);}
+
+/* stats → minimal data band, top rule */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:30px 0;border-top:1.5px solid var(--rule);}
+.stat{padding:18px 22px 18px 0;background:none;border:none;border-radius:0;box-shadow:none;}
+.stat + .stat{border-left:1px solid var(--line);padding-left:22px;}
+.stat .v{font-size:34px;font-weight:800;color:var(--ink);line-height:1;letter-spacing:-0.035em;font-variant-numeric:tabular-nums;}
+.stat .v.b{color:var(--blue);} .stat .v.r{color:var(--red);}
+.stat .k{font-size:11.5px;color:var(--t3);margin-top:11px;line-height:1.45;}
+
+/* tables → horizontal rules only */
+table.data{width:100%;border-collapse:collapse;margin:24px 0;font-size:13.5px;border:none;box-shadow:none;border-radius:0;}
+table.data th{background:none;text-align:left;font-weight:700;color:var(--ink);padding:11px 16px 11px 0;
+  font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;border-bottom:1.5px solid var(--rule);}
+table.data td{padding:13px 16px 13px 0;border-bottom:1px solid var(--line);color:var(--t2);vertical-align:top;line-height:1.55;}
+table.data th:last-child,table.data td:last-child{padding-right:0;}
+table.data tr:last-child td{border-bottom:1px solid var(--line);}
+table.data td code{font-size:12px;}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;white-space:nowrap;letter-spacing:-0.01em;
+  padding:0;background:none;border-radius:0;}
+.tag.b{color:var(--blue-deep);} .tag.b::before{content:"▪ ";color:var(--blue);font-size:.8em;}
+.tag.r{color:var(--red);} .tag.r::before{content:"▪ ";font-size:.8em;}
+.tag.g{color:var(--t3);} .tag.g::before{content:"▫ ";color:var(--muted);font-size:.8em;}
+
+/* tree → light mono */
+.tree{background:var(--soft);color:var(--t1);border:1px solid var(--line2);border-radius:8px;padding:22px 24px;
+  margin:24px 0;font-family:var(--mono);font-size:12.5px;line-height:1.95;overflow-x:auto;box-shadow:none;}
+.tree .root{color:var(--ink);font-weight:700;} .tree .b{color:var(--ink);font-weight:600;}
+.tree .m{color:var(--muted);} .tree .c{color:var(--blue-deep);}
+
+/* flow */
+.flow{display:flex;align-items:stretch;flex-wrap:wrap;gap:8px;margin:8px 0;}
+.flow .node{flex:1;min-width:104px;background:none;border:1px solid var(--line2);border-radius:8px;padding:13px 14px;text-align:center;box-shadow:none;}
+.flow .node .s{font-family:var(--mono);font-size:9.5px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;}
+.flow .node .nm{font-weight:700;font-size:13px;margin-top:5px;color:var(--ink);}
+.flow .node .dt{font-size:11px;color:var(--t3);margin-top:3px;}
+.flow .arrow{display:flex;align-items:center;color:var(--line2);font-size:14px;}
+.flow .node.hl{border-color:var(--blue);background:none;}
+.flow .node.hl .nm{color:var(--blue-deep);}
+.flow .node.bad{border-color:var(--red);background:none;}
+.flow .node.bad .nm{color:var(--red);}
+.diagram{background:none;border:1px solid var(--line2);border-radius:10px;padding:24px;margin:24px 0;}
+.diagram h4{margin-top:0;}
+
+/* vfunnel */
+.vfun{margin:22px 0;}
+.vfun .row{display:flex;align-items:center;gap:14px;margin:6px 0;}
+.vfun .bar{height:38px;border-radius:4px;display:flex;align-items:center;padding:0 15px;color:#fff;
+  font-weight:600;font-size:12.5px;background:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-0.01em;}
+.vfun .meta{font-size:12.5px;color:var(--t3);flex:1;}
+
+/* swot — top rule per quadrant, no fill */
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:0 36px;margin:24px 0;}
+.swot .q{border:none;border-top:2px solid var(--line2);border-radius:0;padding:16px 0 22px;background:none;box-shadow:none;}
+.swot .q h4{margin:0 0 11px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;display:flex;justify-content:space-between;font-weight:700;color:var(--muted);}
+.swot .q ul{margin:0;padding-left:16px;font-size:13.5px;}
+.swot .q.pos{border-top-color:var(--blue);} .swot .q.pos h4{color:var(--blue-deep);}
+.swot .q.neg{border-top-color:var(--red);} .swot .q.neg h4{color:var(--red);}
+
+/* score */
+.score{margin:18px 0;}
+.score .line{display:flex;align-items:center;gap:14px;margin:11px 0;}
+.score .nm{width:172px;font-size:13px;font-weight:600;color:var(--t1);}
+.score .track{flex:1;height:6px;background:var(--hover);border-radius:0;overflow:hidden;}
+.score .fill{height:100%;border-radius:0;}
+.score .fill.b{background:var(--blue);} .score .fill.r{background:var(--red);} .score .fill.g{background:var(--muted);}
+.score .num{width:92px;text-align:right;font-family:var(--mono);font-size:12.5px;color:var(--t2);font-weight:600;font-variant-numeric:tabular-nums;}
+
+/* misc */
+.kv{display:grid;grid-template-columns:150px 1fr;gap:8px 20px;margin:16px 0;font-size:13.5px;}
+.kv dt{font-weight:700;color:var(--ink);}
+.kv dd{color:var(--t2);}
+.eg{font-family:var(--mono);font-size:11.5px;color:var(--t2);background:var(--soft);border:1px solid var(--line2);
+  border-radius:8px;padding:14px 16px;margin:12px 0;line-height:1.85;white-space:pre-wrap;word-break:break-all;}
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:4px;background:var(--hover);color:var(--t2);margin-right:5px;}
+.docfoot{padding:44px 56px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;}
+
+@media (max-width:1180px){:root{--toc:0px;} .toc{display:none;} .docbody{grid-template-columns:1fr;}}
+@media (max-width:880px){
+  :root{--nav:0px;} .docnav{display:none;} .layout{grid-template-columns:1fr;}
+  .dochead{padding:14px 20px;} .content{padding:16px 20px 70px;}
+  .stats{grid-template-columns:1fr 1fr;} .swot{grid-template-columns:1fr;gap:0;}
+  .stat + .stat:nth-child(odd){border-left:none;padding-left:0;}
+}
+@media print{
+  .docnav,.toc,.src-btn{display:none;}
+  .layout,.docbody{display:block;}
+  .dochead{position:static;backdrop-filter:none;-webkit-backdrop-filter:none;height:auto;padding:0 0 14px;border-bottom:2px solid var(--ink);margin-bottom:8px;}
+  .content{max-width:100%;padding:0 12mm;}
+  .right{padding:12mm 0;}
+  body{font-size:10.5px;line-height:1.55;}
+  h2{font-size:21px;}
+  .card,.diagram,.swot .q,table.data tr,.stats,.tree{page-break-inside:avoid;}
+  .sec-break{page-break-before:always;}
+  @page{margin:13mm;}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="docnav">
+    <div class="search-label">Search</div>
+    <input class="search-box" id="searchBox" placeholder="문서 검색" autocomplete="off">
+    <nav class="doclist" id="docList">
+    <a class="docitem" href="#exec" data-sec="exec"><div class="t">Executive Summary</div><div class="f">00_SUMMARY.md</div></a>
+    <div class="doc-group">BECON 분석</div>
+    <a class="docitem" href="#s1" data-sec="s1"><div class="t">Company Architecture</div><div class="f">01_COMPANY.md</div></a>
+    <a class="docitem" href="#s2" data-sec="s2"><div class="t">Information Architecture</div><div class="f">02_IA.md</div></a>
+    <a class="docitem" href="#s3" data-sec="s3"><div class="t">Discoverability</div><div class="f">03_DISCOVER.md</div></a>
+    <a class="docitem" href="#s4" data-sec="s4"><div class="t">SEO Analysis</div><div class="f">04_SEO.md</div></a>
+    <a class="docitem" href="#s5" data-sec="s5"><div class="t">GEO (AI Search)</div><div class="f">05_GEO.md</div></a>
+    <a class="docitem" href="#s6" data-sec="s6"><div class="t">Content Strategy</div><div class="f">06_CONTENT.md</div></a>
+    <a class="docitem" href="#s7" data-sec="s7"><div class="t">Product Strategy</div><div class="f">07_PRODUCT.md</div></a>
+    <a class="docitem" href="#s8" data-sec="s8"><div class="t">UX Strategy</div><div class="f">08_UX.md</div></a>
+    <a class="docitem" href="#s9" data-sec="s9"><div class="t">Business Funnel</div><div class="f">09_FUNNEL.md</div></a>
+    <a class="docitem" href="#s10" data-sec="s10"><div class="t">Internal Link Map</div><div class="f">10_LINKMAP.md</div></a>
+    <a class="docitem" href="#s11" data-sec="s11"><div class="t">Global Strategy</div><div class="f">11_GLOBAL.md</div></a>
+    <a class="docitem" href="#s12" data-sec="s12"><div class="t">BECON SWOT</div><div class="f">12_SWOT.md</div></a>
+    <div class="doc-group">ARAM HUVIS 분석</div>
+    <a class="docitem" href="#s_aram1" data-sec="s_aram1"><div class="t">Company & Product</div><div class="f">A1_ARAM.md</div></a>
+    <a class="docitem" href="#s_aram2" data-sec="s_aram2"><div class="t">Global & SEO Hygiene</div><div class="f">A2_ARAM.md</div></a>
+    <div class="doc-group">ChoiceDX 자사</div>
+    <a class="docitem" href="#s_cdx" data-sec="s_cdx"><div class="t">Current Exposure Audit</div><div class="f">C_AUDIT.md</div></a>
+    <div class="doc-group">비교 · 전략</div>
+    <a class="docitem" href="#s_matrix" data-sec="s_matrix"><div class="t">3-Brand Matrix</div><div class="f">M_MATRIX.md</div></a>
+    <a class="docitem" href="#s13" data-sec="s13"><div class="t">3사 평가표 (100점)</div><div class="f">13_SCORE.md</div></a>
+    <a class="docitem" href="#s_no1" data-sec="s_no1"><div class="t">ChoiceDX 1위 전략</div><div class="f">N_NO1_STRATEGY.md</div></a>
+    <a class="docitem" href="#s_brand" data-sec="s_brand"><div class="t">브랜드 메시지·네이밍</div><div class="f">B_BRANDING.md</div></a>
+    <div class="doc-group">실행</div>
+    <a class="docitem" href="#s14" data-sec="s14"><div class="t">Action Plan</div><div class="f">14_ACTION.md</div></a>
+    <a class="docitem" href="#s15" data-sec="s15"><div class="t">PM Recommendation</div><div class="f">15_PM.md</div></a>
+    <a class="docitem" href="#s16" data-sec="s16"><div class="t">Top 10 × 2</div><div class="f">16_TOP10.md</div></a>
+    </nav>
+  </aside>
+  <div class="right">
+    <header class="dochead">
+      <div>
+        <div class="eyebrow" id="headEyebrow">MASTER DOCUMENTS</div>
+        <div class="dtitle" id="headTitle">ChoiceDX Master Benchmark</div>
+      </div>
+      <button class="src-btn" id="pdfBtn" type="button">PDF 저장</button>
+    </header>
+    <div class="docbody">
+      <main class="content" id="content">
+
+
+<!-- 00 EXEC -->
+<section id="exec">
+  <div class="kicker">00 — EXECUTIVE SUMMARY</div>
+  <h2>핵심 요약</h2>
+
+  <h3>한 장으로 보는 결론</h3>
+  <p>세 회사를 같은 잣대로 줄 세우면 ChoiceDX가 꼴찌로 보인다. 그러나 이건 <strong>‘실제 실력’이 아니라 ‘드러난 실력’의 순위</strong>다. ChoiceDX는 이미 전국 올리브영 100개 이상의 매장에서 SkinScan으로 매일 고객 피부를 측정하고 있다. 문제는 그 측정이 ChoiceDX(초이스테크코리아)의 기술이라는 사실을 <strong>소비자도, 업계도 모른다</strong>는 데 있다.</p>
+  <p>경쟁사 BECON이 “올리브영과 협업했다”를 홍보 소재로 파는 동안, ChoiceDX는 실제 매장에서 매일 측정하면서도 그 사실을 자기 브랜드로 연결하지 못했다. 결론은 단순하다 — <strong>ChoiceDX의 1위 전략은 새 자산을 만드는 일이 아니라, 이미 가진 가장 강한 자산을 드러내는 일이다.</strong></p>
+
+  <h3>경쟁 지형 — 세 회사의 무게중심</h3>
+  <table class="data">
+    <thead><tr><th>브랜드</th><th>규모</th><th>본질</th><th>가장 센 무기</th><th>치명적 빈틈</th></tr></thead>
+    <tbody>
+      <tr><td><strong>BECON</strong></td><td>240 URL · 7도메인</td><td>마케팅형 스타트업</td><td>콘텐츠·PR로 신뢰를 끊임없이 쌓음</td><td>도메인이 흩어지고 전환 추적이 끊김</td></tr>
+      <tr><td><strong>ARAM HUVIS</strong></td><td>170 URL · WordPress</td><td>글로벌 장비 제조사</td><td>20개국 넘는 유통망, CES·Cosmoprof 수상</td><td>웹 관리가 방치돼 검색·AI 노출이 약함</td></tr>
+      <tr><td><strong>ChoiceDX</strong> <span class="pill">자사</span></td><td>14 URL · 단일 도메인</td><td>리테일 측정 인프라</td><td>올리브영 100개+ 매장 실측, 깨끗한 단일 도메인</td><td>가진 걸 알리지 않아 시장이 모름</td></tr>
+    </tbody>
+  </table>
+
+  <div class="stats">
+    <div class="stat"><div class="v b">100+</div><div class="k">SkinScan이 깔린 올리브영 매장</div></div>
+    <div class="stat"><div class="v">3</div><div class="k">비교 분석한 브랜드</div></div>
+    <div class="stat"><div class="v">14</div><div class="k">ChoiceDX 현재 노출 페이지</div></div>
+    <div class="stat"><div class="v r">0</div><div class="k">ChoiceDX 블로그·케이스·콘텐츠</div></div>
+  </div>
+
+  <h3>가장 큰 발견 — 숨겨진 1위</h3>
+  <div class="card point">
+    <div class="ct">ChoiceDX는 이미 ‘리테일 측정 1위’의 실체를 갖고 있다</div>
+    <p>올리브영 100개 이상 매장은 <strong>국내에서 가장 큰 규모의 피부 측정 접점</strong>이다. 경쟁사 누구도 이 정도 규모로 실제 매장에서 측정을 돌리지 못한다. 그런데 이 사실이 두 군데서 새고 있다 — ① 매장에서 측정받은 <strong>소비자는 그게 ChoiceDX인 줄 모르고</strong>, ② 도입을 검토하는 <strong>B2B 기업도 SkinScan이 ChoiceDX 기술인 줄 모른다.</strong> 가진 증거는 BECON보다 강한데, 목소리가 없다.</p>
+  </div>
+
+  <h3>ChoiceDX가 BECON에게서 가져올 것</h3>
+  <p>BECON의 진짜 강점은 신뢰를 <strong>주장하지 않고 쌓는 방식</strong>이다. 도입 사례 20건과 제품 업데이트 19건이 매주 새로운 ‘증거 콘텐츠’가 되어, 검색·AI·잠재 고객 모두에게 “이미 검증된 표준”이라는 인상을 자동으로 만든다. ChoiceDX는 이 <strong>증거를 쌓는 구조</strong>를 그대로 가져오되, 그 안을 채울 재료를 ‘올리브영 100개 매장’이라는 자기만의 사실로 채우면 된다.</p>
+
+  <h3>핵심 제안</h3>
+  <div class="card point">
+    <div class="ct">전략 한 줄</div>
+    <p>BECON의 ‘증거 쌓기’는 배우고, ChoiceDX만의 자산(올리브영 100개 매장 × SkinScan 성과 추적)을 브랜딩으로 깨운다. 목표는 “많이 쓰이는 스캐너”가 아니라 <strong>“리테일에서 가장 많이 측정된 피부 데이터 — 그 기준을 만든 회사”</strong>라는 카테고리 1위 자리다.</p>
+  </div>
+</section>
+
+
+  <h3>경쟁 지형 — 3사 포지션 (URL 역추론)</h3>
+  <table class="data">
+    <thead><tr><th>브랜드</th><th>URL 규모</th><th>DNA</th><th>최대 강점</th><th>치명 약점</th></tr></thead>
+    <tbody>
+      <tr><td><strong>BECON</strong></td><td>240 (7도메인)</td><td>스타트업·마케팅</td><td>콘텐츠·PR 양산, 신뢰 그래프</td><td>도메인 파편화·전환 추적 단절</td></tr>
+      <tr><td><strong>ARAM HUVIS</strong></td><td>170 (WordPress)</td><td>제조사·글로벌 유통</td><td>20개국+ distributor, CES·Cosmoprof 수상</td><td>URL 정리 상태 최악·콘텐츠 빈약·제품코드 모호</td></tr>
+      <tr><td><strong>ChoiceDX</strong> <span class="pill">자사</span></td><td>14 (단일 도메인)</td><td>리테일 채널·측정</td><td>올리브영 SkinScan 입점·측정 포지션·깔끔한 단일 도메인</td><td>콘텐츠·SEO·GEO 자산 거의 0</td></tr>
+    </tbody>
+  </table>
+  <div class="card point">
+    <div class="ct">3사 구도 결론</div>
+    <p>세 회사는 같은 “AI 피부·두피 분석” 시장에 있지만 무게중심이 다르다 — <strong>BECON은 ‘콘텐츠 신뢰’, ARAM은 ‘글로벌 하드웨어 유통’, ChoiceDX는 ‘리테일 채널(올리브영) + 측정 포지션’</strong>. ChoiceDX는 현재 디지털 자산이 가장 얇지만, <strong>그릇(제품 구조·단일 도메인·올리브영 채널·measurement 페이지)이 가장 깨끗</strong>하다. 즉 “없는 것을 채우는” 싸움이지 “엉킨 것을 푸는” 싸움이 아니다 — 후발주자의 결정적 이점.</p>
+  </div>
+
+<!-- 01 Company Architecture -->
+<section id="s1" class="sec-break">
+  <div class="kicker">01 — COMPANY ARCHITECTURE</div>
+  <h2>회사 구조</h2>
+  <p class="lead-sec">URL 도메인 분포로부터 역추론한 BECON의 회사·브랜드·서비스·제품·비즈니스 구조.</p>
+
+  <h3>회사 & 브랜드 구조</h3>
+  <p>BECON(주식회사 비컨)은 단일 회사 아래 <strong>B2B·B2C 두 개의 브랜드 우산</strong>과 <strong>다수의 커머스/파트너 자산</strong>을 운영하는 멀티 브랜드 구조다.</p>
+  <div class="tree">
+<span class="root">㈜비컨 (BECON Inc.) — 삼성전자 C-Lab 스핀오프(2020)</span>
+├─ <span class="b">BECON (B2B 브랜드)</span> · 전문가용
+│   ├─ beconx.com/ko ............ 마케팅·콘텐츠 대표 주소
+│   ├─ b2b-web.withbecon.com .... B2B 웹앱·리포트 공유
+│   └─ App: Becon Pro (iOS/AOS)
+├─ <span class="b">위드비컨 WithBecon (B2C 브랜드)</span> · 홈케어
+│   ├─ withbecon.com ............ B2C 앱 브랜드
+│   ├─ App: 위드비컨 (iOS/AOS)
+│   ├─ withbecon.shop ........... 커머스 (위드비컨 샴푸)
+│   └─ becon.store .............. 커머스 (아이엠 라인)
+├─ <span class="b">Global</span>
+│   └─ globalbecon.com .......... 글로벌 커머스·상담
+└─ <span class="m">파트너 자산</span>
+    ├─ revbycell.com ............ 시술 브랜드 협력
+    └─ btheb.sba.kr ............. 서울경제진흥원 채널
+  </div>
+
+  <h3>서비스 구조</h3>
+  <div class="tree">
+<span class="root">/ko/service</span> — 분석 서비스 4종
+├─ <span class="c">skin-analysis</span> .... AI 피부 분석 (11항목)
+├─ <span class="c">scalp-analysis</span> ... AI 두피·탈모 분석 (10항목)
+├─ <span class="c">beauty-analysis</span> .. 뷰티 종합 분석
+├─ <span class="c">personal-color</span> ... 퍼스널컬러 분석
+└─ <span class="c">customizing</span> ...... 맞춤 솔루션 매칭
+  </div>
+
+  <h3>제품 구조</h3>
+  <div class="kv">
+    <dt>하드웨어</dt><dd>Becon Pro 스캐너(20배율 CMOS·IR온도·VoC 센서), Pluna(시술 디바이스), Kiosk</dd>
+    <dt>소프트웨어</dt><dd>분석 앱(B2B/B2C), 고객관리·상담차트, 성분 매칭 엔진(3,300~40,000 성분 DB)</dd>
+    <dt>소모품/커머스</dt><dd>위드비컨 샴푸 라인, 아이엠 헤어케어 라인</dd>
+  </div>
+
+  <h3>비즈니스 구조</h3>
+  <div class="card">
+    <div class="ct">수익 모델 역추론</div>
+    <p><strong>① B2B 디바이스+SaaS:</strong> 병원·클리닉·살롱·리테일에 스캐너+분석 솔루션 공급(주력). <strong>② B2B 소모품:</strong> 도입처 대상 케어 제품 리필. <strong>③ B2C 커머스:</strong> 위드비컨 앱→샴푸 직판. <strong>④ 교육/온보딩:</strong> 파트너 디플로마 교육(유료 묶어두기).</p>
+  </div>
+
+  <div class="card point">
+    <div class="ct">ChoiceDX 적용</div>
+    <p>BECON처럼 B2B/B2C를 동시에 벌리면 브랜드·도메인이 파편화된다. ChoiceDX는 <strong>B2B(리테일 데이터 인프라) 단일 집중</strong>으로 출발해 회사=브랜드=도메인을 1:1:1로 묶는다. 커머스가 필요해지면 서브도메인으로 흡수.</p>
+  </div>
+</section>
+
+<!-- 02 IA -->
+<section id="s2" class="sec-break">
+  <div class="kicker">02 — INFORMATION ARCHITECTURE</div>
+  <h2>정보 구조 (IA Diagram)</h2>
+  <p class="lead-sec">beconx.com 196 URL의 전체 IA를 트리로 복원하고, 11개 영역의 역할·목적을 분석한다.</p>
+
+  <div class="tree">
+<span class="root">beconx.com /ko</span>  (홈 = 권위 + 카테고리 분배 허브)
+├─ <span class="b">Company</span>     about-us · enterprise · privacypolicy
+├─ <span class="b">Service</span>     service / {skin · scalp · beauty · personal-color · customizing}
+├─ <span class="b">Product</span>     product / {scanner · pluna} · kiosk
+├─ <span class="b">Case Study</span>  case-studies (허브) → case-study/{20 brands}
+├─ <span class="b">Blog</span>        blog / {categories ×5 · hashtags ×74} + post/{38}
+├─ <span class="b">Update</span>      update/{19 changelog}
+├─ <span class="b">App</span>         app-download → store links (B2B/B2C ×4)
+├─ <span class="b">Education</span>   online-session · onboarding-session · booking-calendar
+├─ <span class="b">Commerce</span>    → becon.store · withbecon.shop · globalbecon.com (외부)
+├─ <span class="b">Support</span>     cs-center / faqs · inquiry
+└─ <span class="b">Community</span>   revbycell-review · copy-of-revbycell-review/{12}
+  </div>
+
+  <h3>영역별 역할 · 목적</h3>
+  <table class="data">
+    <thead><tr><th>영역</th><th>URL 규모</th><th>퍼널 역할</th><th>목적</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Company</strong></td><td>3</td><td>인지·신뢰</td><td>기술 신뢰·법인 신뢰 확립</td></tr>
+      <tr><td><strong>Service</strong></td><td>8</td><td>검토</td><td>“무엇을 분석하나” 의도 매칭</td></tr>
+      <tr><td><strong>Product</strong></td><td>4</td><td>검토</td><td>디바이스 사양·차별점</td></tr>
+      <tr><td><strong>Case Study</strong></td><td>20+1</td><td>신뢰·검토</td><td>도입 증명 (전환을 이끄는 핵심 요인)</td></tr>
+      <tr><td><strong>Blog/Post</strong></td><td>118</td><td>인지·유입</td><td>검색·SNS 유입, 카테고리 리더십</td></tr>
+      <tr><td><strong>Update</strong></td><td>19</td><td>재방문·유지</td><td>제품이 살아있다는 신호·신뢰 유지</td></tr>
+      <tr><td><strong>App</strong></td><td>4</td><td>활성화</td><td>도입 후 실사용 진입</td></tr>
+      <tr><td><strong>Education</strong></td><td>3+</td><td>전환·온보딩</td><td>예약·교육으로 묶어두기</td></tr>
+      <tr><td><strong>Commerce</strong></td><td>17(외부)</td><td>구매</td><td>소모품·B2C 매출</td></tr>
+      <tr><td><strong>Support</strong></td><td>3</td><td>유지</td><td>문의·FAQ</td></tr>
+      <tr><td><strong>Community</strong></td><td>13</td><td>신뢰(UGC)</td><td>시술 전후 로그=실증</td></tr>
+    </tbody>
+  </table>
+
+  <div class="card">
+    <div class="ct">IA 강점 — 11개 영역이 퍼널 전 구간을 덮는다</div>
+    <p>BECON IA의 미덕은 <strong>인지→검토→신뢰→전환→활성화→재방문·유지</strong> 전 구간에 전용 영역이 배치돼 있다는 점이다. 특히 Case Study와 Update를 독립 영역으로 둔 결정이 탁월하다.</p>
+  </div>
+  <div class="card alert">
+    <div class="ct">IA 약점 — 분류 비일관 & 외부 의존</div>
+    <p><code>/case-studies</code>(복수 허브) vs <code>/case-study</code>(단수 상세), 블로그 글이 <code>/post</code>로 분리, Commerce가 외부 도메인, <code>copy-of-*</code> 잔재 13건.</p>
+  </div>
+  <div class="card point">
+    <div class="ct">ChoiceDX 적용</div>
+    <p>BECON의 11영역 골격을 <strong>그대로 차용</strong>하되 단·복수/경로를 통일하고 Commerce를 서브도메인으로 내재화. 권장 평면 IA: <code>/measure · /retail · /proof(=case) · /insight(=blog) · /release(=update) · /learn(=edu) · /start(=전환)</code>.</p>
+  </div>
+</section>
+
+<!-- 03 Discoverability -->
+<section id="s3" class="sec-break">
+  <div class="kicker">03 — DISCOVERABILITY ANALYSIS</div>
+  <h2>검색 노출 분석</h2>
+  <p class="lead-sec">Google 검색·AI 검색·지식그래프 관점에서 BECON이 어떻게 발견되고 신뢰를 쌓는가.</p>
+
+  <h3>Google Discoverability</h3>
+  <p>BECON은 <strong>브랜드·파트너 키워드에서 강하다.</strong> “비컨 스캐너”, “AI 두피 분석”, “올리브영 피부 진단” 등에서 자사 도메인+파트너 보도가 동시 노출되며, 38개 포스트가 롱테일 이벤트/지역 키워드(패서디나·북촌·홍콩 등)를 흡수한다. 약점은 정보형 키워드(“피부 분석 항목”, “두피 진단 정확도”)를 직접 겨냥한 페이지가 적다는 점.</p>
+
+  <h3>AI Discoverability</h3>
+  <p>생성형 엔진이 BECON을 이해하기 쉬운 이유는 <strong>검색엔진이 인식하는 개체가 명확하고 반복되기 때문</strong>이다. “박민석=창업자”, “삼성=기원”, “CES=수상”, “올리브영=고객”이 여러 페이지에서 일관되게 함께 언급해, LLM이 BECON을 “검증된 K-뷰티테크 스캐너 기업”으로 안정적으로 분류한다.</p>
+
+  <h3>Knowledge Graph · Entity 구성</h3>
+  <div class="tree">
+<span class="root">[ BECON ]</span> (Organization)
+├─ founder ──→ <span class="c">박민석</span> ──→ ex-Samsung, 과기정통부 표창
+├─ origin ───→ <span class="c">삼성전자 C-Lab</span> (2020 spin-off)
+├─ award ────→ <span class="c">CES 2023 Innovation</span>
+├─ product ──→ Becon Pro · Pluna · Kiosk
+├─ customer ─→ <span class="c">올리브영 · 모로칸오일 · 애터미 · 웰라 · 닥터지</span>
+├─ partner ──→ 삼성전자 · 바디프랜드 · 롯데헬스케어
+├─ market ───→ KR · US(파사데나) · HK(Mannings) · SG(Guardian) · EU
+└─ proof ────→ 모발이식 병원 ~30% 도입 · 뷰티학과 커리큘럼
+  </div>
+
+  <h3>브랜드 위상 구축 방식</h3>
+  <div class="card">
+    <div class="ct">BECON의 신뢰 공식</div>
+    <p><strong>신뢰 = (대기업 기원) × (제3자 수상) × (유명 고객 함께 언급) × (반복 노출)</strong>. 자랑이 아니라 “남들이 인정한 사실”을 누적해 신뢰를 제3자가 대신 인정해 주게 만든다.</p>
+  </div>
+  <div class="card point">
+    <div class="ct">ChoiceDX 적용</div>
+    <p>같은 공식을 ChoiceDX 버전으로: (CTK 기술 기원·인증) × (정확도/임상 근거) × (초기 리테일 파트너) × (정의어 ‘Skin ID’ 반복). 파트너 수에서 지므로 <strong>‘측정 정확도’와 ‘정의어 점유’</strong>를 권위의 축으로 삼는다.</p>
+  </div>
+</section>
+
+<!-- 04 SEO -->
+<section id="s4" class="sec-break">
+  <div class="kicker">04 — SEO ANALYSIS</div>
+  <h2>SEO 분석</h2>
+  <p class="lead-sec">Homepage · URL · Metadata · Keyword · Category · Internal Link · Blog · Topic Cluster.</p>
+
+  <table class="data">
+    <thead><tr><th>SEO 축</th><th>BECON 현황 (URL 역추론)</th><th>평가</th></tr></thead>
+    <tbody>
+      <tr><td>Homepage Structure</td><td><code>/ko</code> 단일 진입, 카테고리 분배 허브 역할</td><td><span class="tag b">양호</span></td></tr>
+      <tr><td>URL Strategy</td><td>한/영 슬러그 혼용, 일부 자모분해·특수문자, v1·copy-of 잔재</td><td><span class="tag r">관리 상태불량</span></td></tr>
+      <tr><td>Metadata</td><td>Wix 기본 의존 추정, 구조화 데이터 미선언 가능성 높음</td><td><span class="tag g">미확인·약</span></td></tr>
+      <tr><td>Keyword</td><td>브랜드·파트너·이벤트 키워드 강, 정보형 약</td><td><span class="tag g">편중</span></td></tr>
+      <tr><td>Category</td><td>blog categories 5종 + hashtags 74(중복 다수)</td><td><span class="tag r">지나치게 불어남</span></td></tr>
+      <tr><td>Internal Link</td><td>허브→말단 흐름 있으나 커머스로 영향력 유출</td><td><span class="tag g">누수</span></td></tr>
+      <tr><td>Blog Strategy</td><td>이벤트·파트너십 편중, 발행 빈도 높음</td><td><span class="tag b">활발</span></td></tr>
+      <tr><td>Topic Cluster</td><td>명시적 pillar-cluster 구조 약함</td><td><span class="tag g">미흡</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="card alert">
+    <div class="ct">URL 정리 상태 핵심 이슈</div>
+    <div class="eg">/product/scanner1234            테스트 더미 색인
+/service/skin-analysis-v1       구버전 동시 색인 (cannibalization)
+/copy-of-revbycell-review/* ×12 Wix 복제 잔재
+/hashtags/becon + /Becon        대소문자 중복
+올리브영 해시태그 7종 분할       키워드 영향력 분산</div>
+  </div>
+
+  <div class="card point">
+    <div class="ct">ChoiceDX 적용 — Topic Cluster를 설계로 강제</div>
+    <p>BECON의 약한 고리(Topic Cluster·관리 상태)를 ChoiceDX의 출발 강점으로. <strong>Pillar = /measure(Skin ID)</strong>를 중심으로 모든 insight 글이 pillar로 상향 링크하고 /start로 하향 CTA. 슬러그 정규식 <code>^[a-z0-9-]+$</code>를 빌드 훅으로 강제, canonical·sitemap 자동 생성(Wix Velo+Make).</p>
+  </div>
+</section>
+
+<!-- 05 GEO -->
+<section id="s5" class="sec-break">
+  <div class="kicker">05 — GEO (AI SEARCH)</div>
+  <h2>GEO 분석 · 생성형 검색</h2>
+  <p class="lead-sec">ChatGPT · Gemini · Claude · Perplexity · Google AI Overview 관점에서 왜 AI가 BECON을 이해하기 쉬운가.</p>
+
+  <table class="data">
+    <thead><tr><th>엔진</th><th>BECON 이해 용이성</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>ChatGPT</td><td><span class="tag b">높음</span></td><td>일관된 개체(삼성·CES·박민석) 반복 → 안정적 요약</td></tr>
+      <tr><td>Perplexity</td><td><span class="tag b">높음</span></td><td>다수 보도·블로그 인용원 풍부, 출처 다양</td></tr>
+      <tr><td>Google AI Overview</td><td><span class="tag b">높음</span></td><td>브랜드+파트너 함께 언급, 케이스 페이지 다수</td></tr>
+      <tr><td>Gemini</td><td><span class="tag g">중</span></td><td>구조화 데이터 약해 사실 추출은 텍스트 의존</td></tr>
+      <tr><td>Claude</td><td><span class="tag g">중</span></td><td>이벤트성 PR 비중↑ → 에버그린 사실 밀도는 보통</td></tr>
+    </tbody>
+  </table>
+
+  <h3>AI가 BECON을 이해하기 쉬운 3가지 이유</h3>
+  <ol>
+    <li><strong>개체 정보의 일관성:</strong> 같은 사실(삼성 스핀오프, CES 2023, 11/10 항목, 2~3초 분석)이 여러 페이지·보도에서 동일하게 반복 → LLM이 “고신뢰 사실”로 학습.</li>
+    <li><strong>고객 함께 언급(co-occurrence):</strong> “BECON + 올리브영/모로칸오일/웰라”가 반복 → 신뢰 그래프가 텍스트만으로도 형성.</li>
+    <li><strong>정량 표현:</strong> “98–99% 발모 효과”, “병원 30% 도입” 같은 수치가 인용 트리거로 작동.</li>
+  </ol>
+
+  <div class="card">
+    <div class="ct">Knowledge Entity 구조 (생성형 관점)</div>
+    <div class="eg">BECON ─is_a→ AI 피부·두피 분석 솔루션
+      ─made_by→ 박민석(ex-Samsung)
+      ─proven_by→ CES2023 · 병원30% · 올리브영
+      ─used_in→ 병원·클리닉·살롱·리테일
+      ─sells→ Becon Pro 스캐너 + 케어제품</div>
+    <p>약점: “measures_what / how_accurate”의 <strong>측정 정의 노드가 비어</strong> 있어, “AI 피부 분석은 정확한가?”류 질문에서 BECON이 정답 출처로 고정되지 못한다 — ChoiceDX의 진입로.</p>
+  </div>
+
+  <div class="card point">
+    <div class="ct">ChoiceDX 적용 — 정의 노드를 선점</div>
+    <p>ChoiceDX는 <code>Skin ID = is_a→ 측정 표준</code>, <code>measures→ {항목·신뢰도·재현성}</code> 노드를 직접 선언(스키마 + 에버그린 글)해, BECON이 비운 “정확도·정의” 질문의 정답 출처가 된다. <code>schema.json</code>에 <code>{question, answer, evidence}</code> 필드를 두어 페이지·FAQ스키마·세일즈덱 3중 재사용.</p>
+  </div>
+</section>
+
+<!-- 06 Content -->
+<section id="s6" class="sec-break">
+  <div class="kicker">06 — CONTENT STRATEGY</div>
+  <h2>콘텐츠 전략</h2>
+  <p class="lead-sec">89개 콘텐츠 자산(post 38 · case 20 · update 19 · review 12)의 카테고리·퍼널·역할.</p>
+
+  <h3>콘텐츠 Funnel</h3>
+  <div class="diagram">
+    <div class="flow">
+      <div class="node"><div class="s">TOFU</div><div class="nm">Trend · Event · News</div><div class="dt">인지·유입</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="s">MOFU</div><div class="nm">Case Study</div><div class="dt">신뢰·검토</div></div>
+      <div class="arrow">→</div>
+      <div class="node hl"><div class="s">BOFU</div><div class="nm">Education · Manual</div><div class="dt">전환·온보딩</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="s">RETAIN</div><div class="nm">Update</div><div class="dt">재방문·유지</div></div>
+    </div>
+  </div>
+
+  <h3>카테고리별 역할</h3>
+  <table class="data">
+    <thead><tr><th>카테고리</th><th>퍼널</th><th>역할</th><th>BECON 운용</th></tr></thead>
+    <tbody>
+      <tr><td>News</td><td>TOFU</td><td>최신성·존재감</td><td>전시·수상 보도 다수</td></tr>
+      <tr><td>Event</td><td>TOFU</td><td>현장 권위·글로벌</td><td>VivaTech·Cosmoprof 등 활발</td></tr>
+      <tr><td>Trend</td><td>TOFU</td><td>사고 리더십</td><td>“왜 뷰티 거인이 AI에 베팅” 등 소수 우수</td></tr>
+      <tr><td>Case Study</td><td>MOFU</td><td>신뢰 증명</td><td><span class="tag b">최강 자산 20개</span></td></tr>
+      <tr><td>Education</td><td>BOFU</td><td>전환·역량</td><td>온라인 교육·디플로마</td></tr>
+      <tr><td>Manual</td><td>BOFU/RETAIN</td><td>사용 지원</td><td>blog/manual 카테고리</td></tr>
+      <tr><td>Update</td><td>RETAIN</td><td>제품이 살아있다는 신호</td><td><span class="tag b">19개 체인지로그</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="card">
+    <div class="ct">잘하는 점 (배울 점)</div>
+    <p>BECON은 <strong>Case Study와 Update를 카테고리로 승격</strong>해 “증명”과 “활력”을 시스템화했다. 콘텐츠가 캠페인이 아니라 누적 자산으로 쌓인다.</p>
+  </div>
+  <div class="card alert">
+    <div class="ct">약점</div>
+    <p>TOFU가 이벤트성 PR에 과의존 → 시간이 지나면 감가. 에버그린 “정의·방법·정확도” 콘텐츠가 빈약.</p>
+  </div>
+  <div class="card point">
+    <div class="ct">ChoiceDX 적용 — 3종 콘텐츠 OS</div>
+    <p><strong>표준(정의) · 증거(데이터/전환율) · 사례(리테일)</strong> 3종으로 고정. BECON의 Case+Update 시스템은 차용, 이벤트 PR 비중은 의도적으로 축소. ContentPack Engine + <code>messaging.md</code>로 “정의→측정→수치→사례” 4단 템플릿 표준화.</p>
+  </div>
+</section>
+
+<!-- 07 Product Strategy -->
+<section id="s7" class="sec-break">
+  <div class="kicker">07 — PRODUCT STRATEGY</div>
+  <h2>제품 전략</h2>
+  <p class="lead-sec">서비스별/제품별 랜딩과 전환(Conversion) 구조.</p>
+
+  <h3>서비스별 Landing</h3>
+  <p>BECON은 분석 항목별로 독립 랜딩(<code>skin / scalp / beauty / personal-color</code>)을 두어 <strong>검색 의도별 진입로</strong>를 확보했다. 각 랜딩은 “무엇을 측정 → 어떻게 → 추천”의 동일 골격을 반복해 학습 비용을 낮춘다.</p>
+
+  <h3>제품별 Landing</h3>
+  <div class="kv">
+    <dt>scanner</dt><dd>디바이스 사양·차별점(피부+두피 겸용) 강조</dd>
+    <dt>pluna</dt><dd>시술 디바이스, revbycell 시술과 연계</dd>
+    <dt>kiosk</dt><dd>리테일·체험형 매장용 셀프 진단</dd>
+  </div>
+
+  <h3>Conversion 구조</h3>
+  <div class="diagram">
+    <div class="flow">
+      <div class="node"><div class="s">진입</div><div class="nm">Service/Product Landing</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="s">신뢰</div><div class="nm">Case Study 링크</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="s">행동</div><div class="nm">inquiry / book-online</div></div>
+      <div class="arrow">→</div>
+      <div class="node bad"><div class="s">상담</div><div class="nm">Kakao/Forms (외부)</div><div class="dt">추적 단절</div></div>
+    </div>
+  </div>
+
+  <div class="card alert">
+    <div class="ct">약점 — 전환 진입 분산 & 외부화</div>
+    <p>예약 진입이 5개(inquiry/online-session/book-online/booking-calendar/onboarding)로 분산되고, 상담이 Google Forms/Meet로 빠져 전환 측정이 끊긴다.</p>
+  </div>
+  <div class="card point">
+    <div class="ct">ChoiceDX 적용</div>
+    <p>서비스별 랜딩 패턴(동일 골격 반복)은 차용. 단, <strong>전환은 단일 <code>/start</code>로 통합</strong>하고 상담 폼을 자사 사이트 자체 구현(<code>landing.html</code>+<code>app.js</code>)해 73% 전환을 끝까지 측정.</p>
+  </div>
+</section>
+
+<!-- 08 UX -->
+<section id="s8" class="sec-break">
+  <div class="kicker">08 — UX STRATEGY</div>
+  <h2>UX 전략</h2>
+  <p class="lead-sec">Navigation · Information Flow · Conversion Flow · Trust · Social Proof · CTA.</p>
+
+  <table class="data">
+    <thead><tr><th>UX 요소</th><th>BECON 운용</th><th>평가</th></tr></thead>
+    <tbody>
+      <tr><td>Navigation</td><td>11개 영역 명확 분기, 글로벌 메뉴 일관</td><td><span class="tag b">강</span></td></tr>
+      <tr><td>Information Flow</td><td>홈→서비스→케이스→문의 동선 명확</td><td><span class="tag b">강</span></td></tr>
+      <tr><td>Conversion Flow</td><td>진입점 5개로 분산, 외부 도구 점프</td><td><span class="tag r">약</span></td></tr>
+      <tr><td>Trust</td><td>대기업·수상·병원 도입률 전면 노출</td><td><span class="tag b">최강</span></td></tr>
+      <tr><td>Social Proof</td><td>20 케이스 + 12 시술 후기 + 파트너 로고</td><td><span class="tag b">강</span></td></tr>
+      <tr><td>CTA</td><td>다채널(Kakao·WA·LINE) 상담, 일관성 부족</td><td><span class="tag g">분산</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="card">
+    <div class="ct">배울 점 — Trust/Social Proof의 전면 배치</div>
+    <p>BECON UX의 핵심 무기는 <strong>“증거를 곳곳에 깔아두는” 신뢰 설계</strong>다. 케이스·로고·수상·도입률이 페이지마다 반복돼 망설임을 줄인다.</p>
+  </div>
+  <div class="card point">
+    <div class="ct">ChoiceDX 적용</div>
+    <p>Trust 전면 배치는 차용하되 <strong>증거의 종류를 ‘측정 정확도·전환율 데이터’</strong>로 바꿔 차별화. CTA는 <strong>단일 Primary Action(/start)</strong>로 정리, 보조 채널은 시각적으로 한 단계 약하게. CRO 스킬의 “광고→랜딩→신청→상담” 단계 진단을 그대로 적용.</p>
+  </div>
+</section>
+
+<!-- 09 Business Funnel -->
+<section id="s9" class="sec-break">
+  <div class="kicker">09 — BUSINESS FUNNEL</div>
+  <h2>비즈니스 퍼널</h2>
+  <p class="lead-sec">Visitor → Content → Case Study → Product → Inquiry → Online Session → Booking → Sales.</p>
+
+  <div class="vfun">
+    <div class="row"><div class="bar" style="width:100%">Visitor — 검색·SNS·전시 유입</div></div>
+    <div class="row"><div class="bar" style="width:88%">Content — Blog/Post(118), Trend</div><div class="meta">인지·체류</div></div>
+    <div class="row"><div class="bar" style="width:70%">Case Study — 도입 사례 20</div><div class="meta">신뢰 형성 (핵심 동인)</div></div>
+    <div class="row"><div class="bar" style="width:58%">Product — Service/Product Landing</div><div class="meta">검토·사양 확인</div></div>
+    <div class="row"><div class="bar" style="width:42%">Inquiry — enterprise·inquiry</div><div class="meta">의향 표명</div></div>
+    <div class="row"><div class="bar" style="width:32%">Online Session — 교육·상담</div><div class="meta">검증·온보딩</div></div>
+    <div class="row"><div class="bar" style="width:24%;background:var(--red)">Booking — Forms/Meet (외부)</div><div class="meta">추적 단절 구간</div></div>
+    <div class="row"><div class="bar" style="width:18%">Sales — 도입 계약·디바이스</div><div class="meta">매출</div></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">퍼널 통찰</div>
+    <p>BECON 퍼널의 힘은 <strong>Content→Case Study 구간</strong>에 있다. 풍부한 콘텐츠가 케이스로 자연 연결돼 신뢰를 쌓는다. 반면 <strong>Booking 구간(외부 도구)</strong>에서 데이터가 끊겨, 어떤 콘텐츠/광고가 매출로 이어졌는지 증명이 어렵다.</p>
+  </div>
+  <div class="card point">
+    <div class="ct">ChoiceDX 적용</div>
+    <p>Content→Case 연결 강도는 차용. Booking 구간을 <strong>자사 사이트 + cg3 소재번호·UTM 끝단 전파</strong>로 메워 ADmind에서 소재→상담→판매를 통째로 측정 → “73% 전환”을 증빙 가능한 세일즈 자산으로.</p>
+  </div>
+</section>
+
+<!-- 10 Internal Link Map -->
+<section id="s10" class="sec-break">
+  <div class="kicker">10 — INTERNAL LINK MAP</div>
+  <h2>내부 링크 맵</h2>
+  <p class="lead-sec">페이지 간 영향력 흐름의 다이어그램.</p>
+
+  <div class="tree">
+<span class="root">/ko (홈 · 최고 권위)</span>
+   │
+   ├──▶ <span class="b">service/*</span> ──┐
+   │                  ├──▶ <span class="b">case-study/*</span> ──▶ <span class="b">inquiry / enterprise</span>
+   ├──▶ <span class="b">product/*</span> ──┘                          │
+   │                                                  ▼
+   ├──▶ <span class="b">blog · post/*</span> ──▶ hashtags(74) ⟲ (루프)   <span class="b">online-session</span>
+   │            │                                     │
+   │            └──▶ case-study (관련)                ▼
+   ├──▶ <span class="b">update/*</span> (앱 사용자 다시 모으기)              <span class="b">booking</span>
+   │                                                  │
+   └──▶ <span class="m">app-download → store/shop (외부, 영향력 유출)</span>  ▼
+                                                   <span class="b">Sales</span>
+  </div>
+
+  <div class="card">
+    <div class="ct">관측</div>
+    <ul>
+      <li><strong>강:</strong> service/product ↔ case-study 상호 링크로 신뢰 영향력이 구매 단계로 흐름.</li>
+      <li><strong>약1:</strong> hashtags 74개가 상호 링크되며 크롤러를 썬 페이지 루프에 가둠.</li>
+      <li><strong>약2:</strong> commerce가 외부 도메인 → 본진의 영향력이 구매 단계로 빠져나간 뒤 돌아오지 않음.</li>
+    </ul>
+  </div>
+  <div class="card point">
+    <div class="ct">ChoiceDX 적용</div>
+    <p>“모든 콘텐츠 카드 = 1 pillar(/measure) 상향링크 + 1 CTA(/start) 하향링크” 규칙을 <code>app.js</code> 렌더에 강제. 해시태그 루프 금지(카테고리 10개 이내). 커머스는 서브도메인으로 권위 공유.</p>
+  </div>
+</section>
+
+<!-- 11 Global -->
+<section id="s11" class="sec-break">
+  <div class="kicker">11 — GLOBAL STRATEGY</div>
+  <h2>글로벌 전략</h2>
+  <p class="lead-sec">SNS · App Store · Commerce · 교육 · 국가별 전개를 URL로 역추론.</p>
+
+  <h3>채널 전개</h3>
+  <table class="data">
+    <thead><tr><th>채널</th><th>자산</th><th>역할</th></tr></thead>
+    <tbody>
+      <tr><td>LinkedIn</td><td>company/beconx</td><td>B2B·글로벌 신뢰</td></tr>
+      <tr><td>YouTube</td><td>@beconpro.official</td><td>데모·교육 영상</td></tr>
+      <tr><td>Instagram</td><td><span class="tag r">becon.korea + becon.official (2계정)</span></td><td>브랜드·국가별 (신호 분할)</td></tr>
+      <tr><td>Facebook</td><td>beconpro.official</td><td>글로벌 도달</td></tr>
+      <tr><td>App Store / Google Play</td><td>Becon Pro(B2B) + 위드비컨(B2C)</td><td>실사용 진입</td></tr>
+      <tr><td>Commerce</td><td>store · shop · globalbecon</td><td>국내+글로벌 직판</td></tr>
+      <tr><td>교육</td><td>online-session · onboarding · booking</td><td>파트너 역량·묶어두기</td></tr>
+    </tbody>
+  </table>
+
+  <h3>국가별 전략</h3>
+  <div class="kv">
+    <dt>미국</dt><dd>올리브영 글로벌(LA·패서디나), 얼바인 지사, 타임스퀘어 팝업</dd>
+    <dt>홍콩·싱가포르</dt><dd>Mannings·Guardian 입점, DFI 컨퍼런스</dd>
+    <dt>대만</dt><dd>Bio Asia 박람회 첫 진출</dd>
+    <dt>유럽</dt><dd>Cosmoprof Bologna·Beauty Düsseldorf·VivaTech(삼성 부스)</dd>
+    <dt>일본</dt><dd>유통망 진출 추진(보도 기준)</dd>
+  </div>
+
+  <div class="card">
+    <div class="ct">배울 점 — 글로벌 신뢰의 PR 자산화</div>
+    <p>BECON은 모든 글로벌 행보를 <strong>포스트로 자산화</strong>해 “글로벌 플레이어” 인식을 누적한다. 박람회 참가 1건도 영구 검색 자산이 된다.</p>
+  </div>
+  <div class="card point">
+    <div class="ct">ChoiceDX 적용</div>
+    <p>SNS는 핸들 1개로 통일(BECON의 2계정 실수 회피). 글로벌은 “전시 참가”가 아니라 <strong>“정확도 표준의 글로벌 채택”</strong> 서사로 차별화. 초기엔 국내 리테일 사례·실적 집중 후 확장.</p>
+  </div>
+</section>
+
+<!-- 12 SWOT -->
+<section id="s12" class="sec-break">
+  <div class="kicker">12 — SWOT</div>
+  <h2>SWOT</h2>
+  <div class="swot">
+    <div class="q pos"><h4><span>Strength</span><span>S</span></h4>
+      <ul>
+        <li>삼성 스핀오프·CES 수상 = 기술 신뢰의 정점</li>
+        <li>20 케이스·파트너 함께 언급 = 신뢰 그래프</li>
+        <li>19 업데이트 = 제품이 계속 발전한다는 신호 체계</li>
+        <li>11영역 IA로 퍼널 전구간 커버</li>
+        <li>글로벌 진출 PR 자산화</li>
+      </ul>
+    </div>
+    <div class="q neg"><h4><span>Weakness</span><span>W</span></h4>
+      <ul>
+        <li>7개 도메인 파편화 (대표 주소·영향력 분산)</li>
+        <li>Wix URL 정리 상태 붕괴 (v1·copy-of·테스트)</li>
+        <li>전환 추적 단절 (Forms/Meet 외부화)</li>
+        <li>에버그린·개념 설명 콘텐츠 결핍</li>
+        <li>B2B/B2C·SNS 2계정 등 경계 모호</li>
+      </ul>
+    </div>
+    <div class="q pos"><h4><span>Opportunity</span><span>O</span></h4>
+      <ul>
+        <li>더모코스메틱·리테일 데이터 시장 급성장</li>
+        <li>“측정 표준/데이터 인프라” 상위 카테고리 공석</li>
+        <li>생성형 검색의 “정확도·정의” 질문 미점유</li>
+        <li>끝까지 추적 퍼널 = B2B 의사결정자 설득 무기</li>
+      </ul>
+    </div>
+    <div class="q neg"><h4><span>Threat</span><span>T</span></h4>
+      <ul>
+        <li>BECON 선점 그래프·브랜드 검색량 우위</li>
+        <li>ARAM HUVIS 등 디바이스 경쟁 동시 진입</li>
+        <li>대기업(삼성·롯데·올리브영) 자체 솔루션화</li>
+        <li>BECON이 관리·통합 정비 시 격차 급축소</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card point">
+    <div class="ct">교차 전략</div>
+    <p><strong>O×W:</strong> BECON 약점(통합·표준·성과 추적)을 ChoiceDX 카테고리 정의로 전환. <strong>S 회피:</strong> 파트너 수 정면승부 금지 — 감성(BECON) vs 증거(CTK)로 축 분리. <strong>T 대비:</strong> ‘Skin ID’ 정의어를 BECON 정비 전에 선점.</p>
+  </div>
+</section>
+
+
+<!-- ARAM HUVIS 1 -->
+<section id="s_aram1" class="sec-break">
+  <div class="kicker">A1 — ARAM HUVIS · COMPANY & PRODUCT</div>
+  <h2>ARAM HUVIS · 회사·제품 구조</h2>
+  <p class="lead-sec">aramhuvis.com 130 URL(다국어 포함). 한국 상장 피부·두피 분석기 제조사의 구조를 역추론한다.</p>
+
+  <h3>회사 구조</h3>
+  <div class="tree">
+<span class="root">아람휴비스 (ARAM HUVIS) — 피부·두피 분석기 제조 (코스닥 상장)</span>
+├─ <span class="b">Analyzer Business Division</span> (분석기 = 주력)
+│   ├─ partners / distributor ...... 글로벌 유통 네트워크
+│   └─ 제품: AI Scalp Grader · ASM · APM-PRO · API · ASL · ASW · Lilai View
+├─ <span class="b">Cosmetic Business Division</span> (화장품)
+│   └─ lilai.ai ........ B2C 커머스 (아토리엔·엘라피엘 세라마이드)
+└─ <span class="m">언어 버전</span>: /ko (51) · /zh-hans (22) · /en (1) · root
+  </div>
+
+  <h3>제품 구조 — 코드명 중심</h3>
+  <table class="data">
+    <thead><tr><th>제품 슬러그</th><th>추정 라인</th><th>마케팅 가독성</th></tr></thead>
+    <tbody>
+      <tr><td><code>aiscalpgrader</code></td><td>AI 두피 분석 (CES 2023 수상)</td><td><span class="tag b">양호</span></td></tr>
+      <tr><td><code>lilai-view</code></td><td>피부 분석 뷰어/플랫폼</td><td><span class="tag g">보통</span></td></tr>
+      <tr><td><code>asm · apm-pro · api · asl · asw</code></td><td>분석기 디바이스 라인</td><td><span class="tag r">코드명=의도매칭 0</span></td></tr>
+    </tbody>
+  </table>
+  <div class="card">
+    <div class="ct">앱 자산 (레거시 누적)</div>
+    <p>Solutionist Pro / Plus / Lite, AramViewer 등 <strong>4종+ 앱이 세대별로 누적</strong>. 구버전(itunes·socketclient·AramViewer.exe)이 여전히 노출돼 “정리되지 않은 제조사” 인상.</p>
+  </div>
+  <div class="card point">
+    <div class="ct">ChoiceDX 적용</div>
+    <p>ARAM의 약점은 ChoiceDX의 기회다. ChoiceDX 제품 슬러그 <code>dx-smart/prime/pico/self</code>는 <strong>이미 사람이 읽을 수 있는 라인업</strong> — ARAM의 코드명(asm/api/asw)보다 압도적으로 우수. 이 강점을 살려 각 제품 랜딩에 “누구를 위한·무엇을 측정”을 명시하면 ARAM 대비 검색 의도 매칭에서 즉시 앞선다.</p>
+  </div>
+</section>
+
+<!-- ARAM HUVIS 2 -->
+<section id="s_aram2" class="sec-break">
+  <div class="kicker">A2 — ARAM HUVIS · GLOBAL & SEO HYGIENE</div>
+  <h2>ARAM HUVIS · 글로벌 & SEO 관리 상태</h2>
+  <p class="lead-sec">진짜 강점(글로벌 유통)과 진짜 약점(디지털 관리 상태)이 극단적으로 갈린다.</p>
+
+  <h3>글로벌 유통 네트워크 — ARAM의 해자</h3>
+  <p>사이트맵 외부 링크에서 <strong>20개국 이상의 distributor</strong>가 확인된다. 이것이 ARAM의 진짜 경쟁력이며, 디바이스 제조사로서 글로벌 B2B 채널을 선점했다.</p>
+  <div class="kv">
+    <dt>유럽</dt><dd>독일(ionto)·스페인(quantum)·영국(nera)·덴마크(skinsolutions)·이탈리아(skinbusiness)·프랑스(beauty-tech)·리투아니아(interlux)</dd>
+    <dt>아시아</dt><dd>일본(3rrr)·중국(derby)·한국(show-hair)</dd>
+    <dt>기타</dt><dd>터키(benon)·캐나다(medelink)·남아공(skintronics)·크로아티아</dd>
+    <dt>수상</dt><dd>CES 2023 AI Scalp Grader 혁신상 · Cosmoprof Awards 등재</dd>
+  </div>
+
+  <h3>SEO 관리 상태 — 방치 상태</h3>
+  <table class="data">
+    <thead><tr><th>이슈</th><th>관측</th><th>심각도</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing <code>&amp;</code> 깨진 URL</td><td><code>/ko/&amp;</code>, <code>youtube.com&amp;/</code> 등 40건</td><td><span class="tag r">High</span></td></tr>
+      <tr><td>분석결과 이미지 색인</td><td><code>wp-content/.../count_JUNO_*.jpg</code> 24장 공개 노출</td><td><span class="tag r">High</span></td></tr>
+      <tr><td>게시판 파라미터 URL</td><td><code>?uid=</code>·<code>?category1=</code>·<code>?mod=list</code> 13건</td><td><span class="tag r">High</span></td></tr>
+      <tr><td>시스템 URL 색인</td><td><code>custom404</code>·<code>sitemap/</code>·<code>/str</code> 노출</td><td><span class="tag g">Med</span></td></tr>
+      <tr><td>언어 중복</td><td>ko/zh-hans/en/root가 canonical 정리 없이 병존</td><td><span class="tag g">Med</span></td></tr>
+    </tbody>
+  </table>
+  <div class="card alert">
+    <div class="ct">통찰 — “하드웨어는 글로벌, 디지털은 로컬 방치”</div>
+    <p>ARAM은 오프라인 유통망에 투자한 만큼 웹 자산을 관리하지 않았다. 특히 <strong>고객 분석 결과로 보이는 이미지가 공개 색인</strong>된 것은 신뢰·프라이버시 측면에서 위험하며, 생성형 엔진이 ARAM을 “신뢰할 정돈된 출처”로 인용하기 어렵게 만든다.</p>
+  </div>
+  <div class="card point">
+    <div class="ct">ChoiceDX 적용</div>
+    <p>ARAM의 글로벌 유통은 단기 추격 불가 — 정면승부 금지. 대신 ChoiceDX는 <strong>“국내 리테일 채널(올리브영) + 디지털 관리·콘텐츠 우위”</strong>로 시작해, 글로벌은 ARAM처럼 ‘유통 나열’이 아니라 ‘측정 표준의 채택’ 서사로 차별화한다. 관리 상태은 ARAM의 반면교사 — 슬러그·canonical·이미지 노출을 빌드 단계에서 원천 차단.</p>
+  </div>
+</section>
+
+<!-- ChoiceDX Current Audit -->
+<section id="s_cdx" class="sec-break">
+  <div class="kicker">C — CHOICEDX · CURRENT EXPOSURE AUDIT</div>
+  <h2>ChoiceDX · 자사 현황 진단</h2>
+  <p class="lead-sec">choicedx.com에 실제로 노출된 14개 페이지를 그대로 진단한다. 추정이 아니라 현재 상태다.</p>
+
+  <div class="tree">
+<span class="root">choicedx.com (단일 도메인 · 14페이지)</span>
+├─ <span class="b">제품</span>  라인업이 또렷하다
+│   ├─ <span class="c">dx-smart · dx-prime · dx-pico · dx-self</span>  ← 사람이 읽히는 4종
+│   └─ accessories
+├─ <span class="b">포지션</span>  ‘측정’ 자리의 씨앗이 이미 있다
+│   ├─ <span class="c">measurement</span>            ← 실측 포지션의 단서
+│   └─ <span class="c">ai-diagnosis-solution</span>  ← 진단 솔루션
+├─ <span class="b">회사</span>  ceo-message · global-business
+├─ <span class="b">리테일</span>  <span class="c">올리브영 SkinScan (m.oliveyoung.co.kr/m/mtn/skinscan)</span>  ← 100개+ 매장 실측
+└─ <span class="m">빠지거나 새는 곳</span>  contact가 choicetech.kr로 분리 · 블로그·케이스·콘텐츠 = 0
+  </div>
+
+  <h3>가진 것과 빠진 것</h3>
+  <table class="data">
+    <thead><tr><th>구분</th><th>항목</th><th>왜 중요한가</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag b">자산</span></td><td>올리브영 100개+ 매장 SkinScan 실측</td><td>국내 최대 규모의 피부 측정 접점 — 세 회사 중 압도적 실증</td></tr>
+      <tr><td><span class="tag b">자산</span></td><td>읽히는 제품 4종(dx-smart/prime/pico/self)</td><td>ARAM의 코드명(asm·api·asw)보다 검색·이해에서 우위</td></tr>
+      <tr><td><span class="tag b">자산</span></td><td><code>measurement</code>·<code>ai-diagnosis-solution</code> 페이지</td><td>“피부 실측 표준”이라는 포지션을 이미 절반 깔아둠</td></tr>
+      <tr><td><span class="tag b">자산</span></td><td>깨끗한 단일 도메인</td><td>BECON(7도메인)·ARAM(다국어 난립)보다 출발선이 정돈됨</td></tr>
+      <tr><td><span class="tag r">공백</span></td><td>올리브영 실측이 ChoiceDX로 연결되지 않음</td><td><strong>가장 큰 손실</strong> — 가진 증거를 브랜드로 연결 못 함</td></tr>
+      <tr><td><span class="tag r">공백</span></td><td>블로그·케이스·업데이트 = 0</td><td>BECON식 ‘증거 쌓기’ 자산이 전무</td></tr>
+      <tr><td><span class="tag r">공백</span></td><td>측정·정의 콘텐츠가 없어 AI 검색에 안 잡힘</td><td>“AI 피부 측정 정확한가” 같은 질문을 아무도 ChoiceDX로 안 받음</td></tr>
+      <tr><td><span class="tag r">공백</span></td><td>contact가 choicetech.kr로 분리</td><td>지금 잡지 않으면 BECON식 도메인 파편화의 시작</td></tr>
+    </tbody>
+  </table>
+
+  <div class="card point">
+    <div class="ct">한 문장 진단</div>
+    <p>ChoiceDX는 <strong>“그릇은 가장 깨끗한데 안이 비어 있고, 정작 가진 보물은 창고에 넣어둔”</strong> 상태다. 제품·도메인·측정 포지션이라는 골격은 경쟁사보다 정돈됐고, 올리브영 100개 매장이라는 보물까지 있다. 비어 있는 건 그 위에 얹을 콘텐츠·증거·정의, 그리고 보물에 ChoiceDX 이름표를 붙이는 일뿐이다.</p>
+  </div>
+  <div class="card alert">
+    <div class="ct">지금 당장 (P0)</div>
+    <p><code>choicetech.kr/contact</code>를 <code>choicedx.com</code> 안으로 합친다. 자산이 쌓이기 전에 파편화의 첫 신호부터 없앤다.</p>
+  </div>
+</section>
+
+<!-- 3-Brand Matrix -->
+<section id="s_matrix" class="sec-break">
+  <div class="kicker">M — 3-BRAND COMPETITIVE MATRIX</div>
+  <h2>3사 경쟁 매트릭스</h2>
+  <p class="lead-sec">핵심 축별 BECON · ARAM HUVIS · ChoiceDX 비교. 각 항목은 ChoiceDX 액션으로 연결된다.</p>
+
+  <table class="data">
+    <thead><tr><th>축</th><th>BECON</th><th>ARAM HUVIS</th><th>ChoiceDX (자사)</th><th>ChoiceDX 행동</th></tr></thead>
+    <tbody>
+      <tr><td>Positioning</td><td>AI 스캐너·자신감</td><td>분석기 제조·코드명</td><td><span class="tag b">측정 포지션 씨앗</span></td><td>‘Skin ID 표준’으로 격상</td></tr>
+      <tr><td>Product 구조</td><td>scanner·pluna</td><td>코드명 7종(모호)</td><td><span class="tag b">4종 명확</span></td><td>제품별 ‘측정 항목’ 명시</td></tr>
+      <tr><td>Content/SEO</td><td><span class="tag b">강(118 글)</span></td><td>약(게시판)</td><td>거의 0</td><td>BECON식 케이스+insight 이식</td></tr>
+      <tr><td>GEO/AI</td><td>중(개체 강)</td><td>약(정리 부실)</td><td>0</td><td>개념 설명 콘텐츠 묶음 선점</td></tr>
+      <tr><td>Global</td><td>전시·PR 확장</td><td><span class="tag b">강(20개국 유통)</span></td><td>없음</td><td>‘표준 채택’ 서사로 후행</td></tr>
+      <tr><td>Retail 채널</td><td>올리브영 협업</td><td>distributor</td><td><span class="tag b">올리브영 SkinScan 입점</span></td><td>채널 신뢰 전면 증거화</td></tr>
+      <tr><td>Domain 통합</td><td>약(7도메인)</td><td>약(다국어+lilai)</td><td><span class="tag b">강(단일)</span></td><td>contact 분리만 제거</td></tr>
+      <tr><td>관리 상태/구조</td><td>중(v1·copy-of)</td><td>최악(&amp;·wp이미지)</td><td><span class="tag b">깨끗(얇음)</span></td><td>빌드 단계 정리 강제</td></tr>
+      <tr><td>Attribution</td><td>약(Forms 누수)</td><td>약</td><td>미구축</td><td>cg3·자사 사이트 끝까지 추적</td></tr>
+    </tbody>
+  </table>
+
+  <h3>항목별 SWOT — ChoiceDX 관점</h3>
+  <table class="data">
+    <thead><tr><th>항목</th><th>Strength (자사)</th><th>Weakness (자사)</th><th>Opportunity</th><th>Threat</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Homepage</strong></td><td>측정·진단 페이지 보유</td><td>신뢰 요소·CTA 빈약</td><td>‘측정 표준’ 첫화면 선점</td><td>BECON 브랜드 인지 우위</td></tr>
+      <tr><td><strong>Product</strong></td><td>4종 읽히는 라인업</td><td>제품별 증거 부족</td><td>‘측정 항목’ 차별화</td><td>ARAM 제조 신뢰·라인업 폭</td></tr>
+      <tr><td><strong>SEO</strong></td><td>단일 도메인·깨끗</td><td>자산량 0</td><td>정리 우위로 빠른 색인</td><td>BECON 콘텐츠 물량</td></tr>
+      <tr><td><strong>AI Search</strong></td><td>—</td><td>개체·정의 노드 0</td><td>‘정확도/정의’ 질문 공석</td><td>BECON 개체 선점</td></tr>
+      <tr><td><strong>Retail</strong></td><td>올리브영 SkinScan</td><td>채널 증거 미노출</td><td>국내 1위 채널 레버리지</td><td>경쟁사 올리브영 동시 협업</td></tr>
+      <tr><td><strong>Global</strong></td><td>—</td><td>다국어·유통 0</td><td>표준 채택 서사</td><td>ARAM 20개국 유통망</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 13 Benchmark scorecard -->
+<section id="s13" class="sec-break">
+  <div class="kicker">13 — CTK BENCHMARK</div>
+  <h2>3사 평가표 · 100점</h2>
+  <p class="lead-sec">11개 항목에 가중치를 매겨 세 회사를 채점했다. ChoiceDX는 ‘현재 드러난 점수’와 ‘자산을 켰을 때’를 나눠서 본다.</p>
+
+  <table class="data">
+    <thead><tr><th>평가 항목</th><th>가중</th><th>BECON</th><th>ARAM</th><th>ChoiceDX 현재</th><th>ChoiceDX 90일</th></tr></thead>
+    <tbody>
+      <tr><td>브랜드 위상</td><td>12</td><td>11</td><td>9</td><td>4</td><td>9</td></tr>
+      <tr><td>검색·노출(Discoverability)</td><td>10</td><td>7</td><td>6</td><td>3</td><td>8</td></tr>
+      <tr><td>SEO 관리 상태</td><td>10</td><td>5</td><td>3</td><td>4</td><td>9</td></tr>
+      <tr><td>AI 검색 이해도(GEO)</td><td>10</td><td>7</td><td>5</td><td>3</td><td>8</td></tr>
+      <tr><td>지식 그래프</td><td>8</td><td>7</td><td>6</td><td>2</td><td>6</td></tr>
+      <tr><td>콘텐츠 자산</td><td>12</td><td>10</td><td>4</td><td>2</td><td>8</td></tr>
+      <tr><td>정보구조 일관성</td><td>8</td><td>5</td><td>4</td><td>6</td><td>8</td></tr>
+      <tr><td>UX·구매로 이어지는 흐름</td><td>10</td><td>6</td><td>5</td><td>5</td><td>9</td></tr>
+      <tr><td>전환 추적</td><td>10</td><td>4</td><td>4</td><td>5</td><td>10</td></tr>
+      <tr><td>도메인 통합</td><td>5</td><td>2</td><td>2</td><td>4</td><td>5</td></tr>
+      <tr><td>포지션 선명도</td><td>5</td><td>3</td><td>3</td><td>4</td><td>5</td></tr>
+      <tr><td><strong>합계</strong></td><td><strong>100</strong></td><td><strong>67</strong></td><td><strong>51</strong></td><td><strong>42</strong></td><td><strong>85</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h4>종합 점수</h4>
+  <div class="score">
+    <div class="line"><div class="nm">BECON</div><div class="track"><div class="fill g" style="width:67%"></div></div><div class="num">67 / 100</div></div>
+    <div class="line"><div class="nm">ARAM HUVIS</div><div class="track"><div class="fill g" style="width:51%"></div></div><div class="num">51 / 100</div></div>
+    <div class="line"><div class="nm">ChoiceDX (현재 노출)</div><div class="track"><div class="fill r" style="width:42%"></div></div><div class="num">42 / 100</div></div>
+    <div class="line"><div class="nm">ChoiceDX (90일, 자산 켜면)</div><div class="track"><div class="fill b" style="width:85%"></div></div><div class="num">85 / 100</div></div>
+  </div>
+
+  <div class="card point">
+    <div class="ct">점수의 함정 — 42점은 ‘실력’이 아니라 ‘노출’이다</div>
+    <p>ChoiceDX의 42점은 현재 웹에 드러난 것만 센 점수다. 브랜드 위상 항목이 4점인데, 이건 권위가 없어서가 아니라 <strong>올리브영 100개 매장이라는 권위를 사이트가 한마디도 하지 않아서</strong>다. 같은 항목에서 90일 목표를 9점으로 잡은 이유가 여기 있다 — 새로 쌓는 게 아니라 이미 가진 걸 켜기만 하면 된다. ARAM(51)은 글로벌 유통은 세지만 웹 관리·콘텐츠가 약해 검색·AI 노출에서 BECON에 밀린다. ChoiceDX가 노릴 빈틈이 바로 거기다.</p>
+  </div>
+</section>
+
+
+<!-- No.1 Strategy -->
+<section id="s_no1" class="sec-break">
+  <div class="kicker">N — CHOICEDX NO.1 STRATEGY</div>
+  <h2>ChoiceDX 1위 전략</h2>
+  <p class="lead-sec">세 회사 중 1위를 잡는 길은 더 많은 콘텐츠가 아니라, 이미 가진 ‘숨은 1위’를 드러내는 것이다.</p>
+
+  <h3>전제 — 1위의 근거는 이미 있다</h3>
+  <p>“리테일에서 가장 많이 측정된 피부 데이터”라는 자리는 비어 있고, 그 자리를 채울 사실을 <strong>ChoiceDX만 갖고 있다</strong>. 올리브영 100개 이상 매장에서 매일 도는 SkinScan 측정이 그것이다. BECON의 ‘올리브영 협업’은 거들었다는 이야기지만, ChoiceDX는 <strong>매장에서 실제로 운영되는 측정 자체</strong>다. 증거의 급이 다르다.</p>
+
+  <h3>3단계로 ‘숨은 1위’를 켠다</h3>
+  <div class="diagram">
+    <div class="flow">
+      <div class="node hl"><div class="s">STEP 1</div><div class="nm">출처 표기</div><div class="dt">측정에 ChoiceDX 이름표</div></div>
+      <div class="arrow">→</div>
+      <div class="node hl"><div class="s">STEP 2</div><div class="nm">선언</div><div class="dt">사실 기반 1위 주장</div></div>
+      <div class="arrow">→</div>
+      <div class="node hl"><div class="s">STEP 3</div><div class="nm">증거화</div><div class="dt">100개 매장을 데이터로</div></div>
+    </div>
+  </div>
+
+  <table class="data">
+    <thead><tr><th>단계</th><th>핵심</th><th>구체 실행</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1. 출처 표기</strong><br>(Attribution)</td><td>소비자·업계가 “이게 ChoiceDX구나”를 알게 한다</td><td>측정 화면·결과 리포트·키오스크·올리브영 채널에 “SkinScan by ChoiceDX(ChoiceTech)” 각인. 측정 후 안내에 브랜드 한 줄 삽입.</td></tr>
+      <tr><td><strong>2. 선언</strong><br>(Category Claim)</td><td>사실로 1위를 말한다</td><td>홈·measurement 페이지 첫 화면에 “전국 100개+ 올리브영 매장이 쓰는 피부 측정” 선언. 과장이 아니라 검증 가능한 숫자라 반박 불가.</td></tr>
+      <tr><td><strong>3. 증거화</strong><br>(Proof)</td><td>한 번 만든 사실을 자산으로 굳힌다</td><td>올리브영 도입을 BECON식 케이스 스터디로, 누적 측정 수치를 ‘리테일 피부 데이터’ 지표로 공개. 측정량이 곧 권위가 된다.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="card point">
+    <div class="ct">왜 이게 BECON을 이기나</div>
+    <p>BECON은 신뢰를 ‘말’로 쌓아왔다(케이스·PR). ChoiceDX는 신뢰를 <strong>‘운영 사실’</strong>로 가졌다(매장 100개). 말은 베낄 수 있어도 “전국 100개 매장에서 매일 측정한다”는 사실은 못 베낀다. 이 한 가지를 제대로 드러내면, 콘텐츠 양에서 뒤져도 ‘리테일 측정’ 카테고리에서는 ChoiceDX가 곧장 1위다.</p>
+  </div>
+</section>
+
+<!-- Branding & Messaging -->
+<section id="s_brand" class="sec-break">
+  <div class="kicker">B — BRAND MESSAGE & NAMING</div>
+  <h2>브랜드 메시지 · 네이밍</h2>
+  <p class="lead-sec">지금 가장 큰 문제는 기술이 아니라 ‘이름의 연결’이다. SkinScan과 ChoiceDX와 ChoiceTech가 따로 논다.</p>
+
+  <h3>이름 구조부터 묶는다</h3>
+  <p>현재 시장에서 셋이 끊겨 있다 — 소비자는 올리브영의 <strong>SkinScan</strong>만 알고, 그게 <strong>ChoiceDX</strong> 제품인지 모르며, 그 뒤의 회사 <strong>ChoiceTech(초이스테크코리아)</strong>는 더 모른다. 이 셋을 하나의 위계로 묶어야 한다.</p>
+  <div class="tree">
+<span class="root">ChoiceTech (초이스테크코리아) — 만든 회사</span>
+└─ <span class="b">ChoiceDX</span> — 측정 브랜드 / 제품
+    └─ <span class="c">SkinScan</span> — 매장에서 만나는 측정 경험(서비스명)
+       "올리브영에서 받은 그 피부 측정 = SkinScan = ChoiceDX"
+  </div>
+
+  <h3>핵심 메시지 위계</h3>
+  <table class="data">
+    <thead><tr><th>층위</th><th>메시지</th><th>쓰는 곳</th></tr></thead>
+    <tbody>
+      <tr><td>한 줄(카테고리)</td><td><strong>“리테일에서 가장 많이 측정된 피부 데이터.”</strong></td><td>홈 히어로·세일즈덱 표지</td></tr>
+      <tr><td>근거</td><td>“전국 100개+ 올리브영 매장에서 SkinScan으로 측정합니다.”</td><td>히어로 하단·B2B 제안서</td></tr>
+      <tr><td>차별</td><td>“협업이 아니라, 매장에서 실제로 돌아가는 측정.”</td><td>경쟁 비교·영업 화법</td></tr>
+      <tr><td>표준 정의</td><td>“피부 실측 표준, Skin ID.”</td><td>measurement 페이지·GEO 콘텐츠</td></tr>
+    </tbody>
+  </table>
+
+  <h3>태그라인 후보</h3>
+  <div class="card">
+    <div class="ct">소비자용 (연결을 살리는 말)</div>
+    <p>· “올리브영에서 만난 그 피부 측정, <strong>SkinScan by ChoiceDX</strong>.”<br>· “당신의 피부, 100개 매장이 쓰는 기준으로 측정합니다.”</p>
+  </div>
+  <div class="card">
+    <div class="ct">B2B용 (도입 결정자를 향한 말)</div>
+    <p>· “전국 100개+ 매장이 이미 선택한 피부 측정 인프라.”<br>· “측정은 표준이어야 합니다. 그 표준이 ChoiceDX입니다.”</p>
+  </div>
+
+  <div class="card point">
+    <div class="ct">브랜딩 결론</div>
+    <p>새 슬로건을 발명할 필요가 없다. <strong>이미 일어나고 있는 사실(올리브영 100개 매장 측정)에 ChoiceDX라는 이름표를 붙이는 것</strong>이 전부다. 메시지의 일은 ‘설득’이 아니라 ‘연결’ — 흩어진 SkinScan·ChoiceDX·ChoiceTech를 한 이름으로 잇는 일이다.</p>
+  </div>
+</section>
+
+<!-- 14 Action Plan -->
+<section id="s14" class="sec-break">
+  <div class="kicker">14 — ACTION PLAN</div>
+  <h2>실행 계획 · 30 / 60 / 90일</h2>
+  <p class="lead-sec">‘숨은 1위 켜기’를 가장 앞에 둔다. 콘텐츠를 새로 쌓는 일보다 가진 자산을 드러내는 일이 빠르고 싸다.</p>
+
+  <h3>30일 — 새는 곳부터 막고, 1위를 선언한다</h3>
+  <table class="data">
+    <thead><tr><th>우선</th><th>할 일</th><th>이유</th></tr></thead>
+    <tbody>
+      <tr><td>P0</td><td>홈·measurement 첫 화면에 “올리브영 100개+ 매장” 선언 배치</td><td>가장 센 무기를 0일차에 켠다</td></tr>
+      <tr><td>P0</td><td>SkinScan에 “by ChoiceDX” 출처 표기(화면·리포트·채널)</td><td>측정을 브랜드로 연결</td></tr>
+      <tr><td>P0</td><td>contact를 choicedx.com 안으로 통합</td><td>파편화 첫 신호 제거</td></tr>
+      <tr><td>P1</td><td>상담 폼을 자사 도메인에 직접 구현(외부 폼 금지)</td><td>전환을 끝까지 추적</td></tr>
+    </tbody>
+  </table>
+
+  <h3>60일 — 사실을 자산으로 굳힌다</h3>
+  <table class="data">
+    <thead><tr><th>우선</th><th>할 일</th><th>가져올 모델</th></tr></thead>
+    <tbody>
+      <tr><td>P1</td><td>올리브영 도입을 케이스 스터디로 발행(첫 1~3건)</td><td>BECON식 증거 쌓기</td></tr>
+      <tr><td>P1</td><td>“피부 측정이란” 개념 설명  글 6편(AI 검색 겨냥)</td><td>비어 있는 질문 선점</td></tr>
+      <tr><td>P2</td><td>measurement 페이지를 ‘Skin ID 표준’ 허브로 확장</td><td>포지션 굳히기</td></tr>
+      <tr><td>P2</td><td>회사·제품 정보에 구조화 데이터 선언</td><td>AI·검색 이해도↑</td></tr>
+    </tbody>
+  </table>
+
+  <h3>90일 — 측정량을 권위로 바꾼다</h3>
+  <table class="data">
+    <thead><tr><th>우선</th><th>할 일</th><th>효과</th></tr></thead>
+    <tbody>
+      <tr><td>P0</td><td>매장→측정→상담→도입을 한 줄로 추적하는 대시보드</td><td>전환율을 영업 자료로</td></tr>
+      <tr><td>P1</td><td>누적 측정 수치를 ‘리테일 피부 데이터’ 지표로 공개</td><td>규모 자체가 권위</td></tr>
+      <tr><td>P2</td><td>콘텐츠 카드마다 ‘측정 허브’ 연결 + 상담 유도 고정</td><td>방문을 전환으로</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 15 PM Recommendation -->
+<section id="s15" class="sec-break">
+  <div class="kicker">15 — PM RECOMMENDATION</div>
+  <h2>PM 권고</h2>
+  <div class="card">
+    <div class="ct">가장 먼저 할 일</div>
+    <p>올리브영 100개 매장이라는 사실을 첫 화면에 올리고, SkinScan에 ChoiceDX 이름표를 붙인다. 돈도 시간도 거의 안 드는데, 효과가 가장 크다. 가진 보물을 창고에서 꺼내 진열장에 놓는 일이다.</p>
+  </div>
+  <div class="card alert">
+    <div class="ct">가장 위험한 것</div>
+    <p>BECON을 콘텐츠·PR 물량으로 따라가려는 유혹. 그 싸움은 권위 격차상 이기기 어렵고, ‘2등 스캐너’로 굳는다. ChoiceDX는 같은 운동장에서 겨루지 말고 ‘리테일 측정’이라는 자기 운동장을 만들어야 한다.</p>
+  </div>
+  <div class="card point">
+    <div class="ct">투자 대비 효과가 가장 큰 것</div>
+    <p>“올리브영 100개 매장 = SkinScan = ChoiceDX”를 잇는 증거 한 장(랜딩 + 케이스 + 숫자). 새 콘텐츠를 잔뜩 만드는 것보다 적은 비용으로, 경쟁사가 못 베끼는 차별점을 즉시 무기로 만든다.</p>
+  </div>
+</section>
+
+<!-- 16 Top 10 -->
+<section id="s16" class="sec-break">
+  <div class="kicker">16 — TOP 10 × 2</div>
+  <h2>빠른 성과 10 · 장기 전략 10</h2>
+
+  <h3>30일 안에 바로 먹히는 것 (Quick Win)</h3>
+  <table class="data">
+    <thead><tr><th>#</th><th>할 일</th><th>노리는 효과</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>홈 첫 화면에 “올리브영 100개+ 매장” 선언</td><td><span class="tag b">숨은 1위 켜기</span></td></tr>
+      <tr><td>2</td><td>SkinScan에 “by ChoiceDX” 출처 표기</td><td><span class="tag b">브랜드 연결</span></td></tr>
+      <tr><td>3</td><td>contact를 자사 도메인으로 통합</td><td><span class="tag b">파편화 차단</span></td></tr>
+      <tr><td>4</td><td>상담 폼 자사 도메인 직접 구현</td><td><span class="tag b">전환 추적</span></td></tr>
+      <tr><td>5</td><td>제품 4종 페이지에 ‘측정 항목’ 명시</td><td><span class="tag b">검색 매칭</span></td></tr>
+      <tr><td>6</td><td>measurement를 ‘Skin ID’ 정의 페이지로</td><td><span class="tag b">포지션 선점</span></td></tr>
+      <tr><td>7</td><td>올리브영 케이스 1건 먼저 공개</td><td><span class="tag b">실증</span></td></tr>
+      <tr><td>8</td><td>핵심 Q&A를 구조화 데이터로 표기</td><td><span class="tag b">AI 검색</span></td></tr>
+      <tr><td>9</td><td>회사·제품 기본 스키마 선언</td><td><span class="tag b">지식 그래프</span></td></tr>
+      <tr><td>10</td><td>슬러그·canonical 규칙 한 번에 정리</td><td><span class="tag b">관리 상태</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>오래 가는 자리를 만드는 것 (Long Term)</h3>
+  <table class="data">
+    <thead><tr><th>#</th><th>전략</th><th>목표</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>‘리테일 피부 측정 표준’ 카테고리 자체를 만든다</td><td><span class="tag g">카테고리 소유</span></td></tr>
+      <tr><td>2</td><td>올리브영 측정 누적 수치를 분기마다 공개</td><td><span class="tag g">규모=권위</span></td></tr>
+      <tr><td>3</td><td>케이스 스터디를 분기 단위로 쌓는다</td><td><span class="tag g">증거 누적</span></td></tr>
+      <tr><td>4</td><td>개념 설명 콘텐츠를 6편→20편으로 확장</td><td><span class="tag g">질문 선점</span></td></tr>
+      <tr><td>5</td><td>측정→상담→도입 추적을 표준 운영으로</td><td><span class="tag g">성과 증명</span></td></tr>
+      <tr><td>6</td><td>측정 정확도·재현성 백서 발행</td><td><span class="tag g">표준 신뢰</span></td></tr>
+      <tr><td>7</td><td>SkinScan·ChoiceDX·ChoiceTech 이름 위계 통일</td><td><span class="tag g">브랜드 정리</span></td></tr>
+      <tr><td>8</td><td>리테일 사례·실적를 해외 확장 서사로</td><td><span class="tag g">글로벌</span></td></tr>
+      <tr><td>9</td><td>제품 업데이트를 공개 페이지로 운영</td><td><span class="tag g">제품이 살아있다는 신호</span></td></tr>
+      <tr><td>10</td><td>분기마다 이 벤치마크를 다시 측정</td><td><span class="tag g">우위 유지</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="card point">
+    <div class="ct">마지막 한 줄</div>
+    <p>ChoiceDX는 1위가 ‘될’ 회사가 아니라, 이미 1위인데 그걸 ‘말하지 않은’ 회사다. 올리브영 100개 매장이라는 사실에 이름표를 붙이고, BECON에게서 ‘증거 쌓는 법’만 빌려오면 — 90일 안에 “리테일에서 가장 많이 측정된 피부 데이터”의 주인이 된다.</p>
+  </div>
+</section>
+
+
+      </main>
+      <aside class="toc">
+        <div class="toc-title">On this page</div>
+        <nav class="toc-list" id="tocList"></nav>
+      </aside>
+    </div>
+    <div class="docfoot">
+      teu.insight · ChoiceDX Master Benchmark — 3사 비교 분석 (BECON · ARAM HUVIS · ChoiceDX) · Confidential<br>
+      데이터 424 URLs · 작성 이세영 · CTK 대표·임원 보고용
+    </div>
+  </div>
+</div>
+<script>
+const docs=[['exec', 'Executive Summary'], ['s1', 'Company Architecture'], ['s2', 'Information Architecture'], ['s3', 'Discoverability'], ['s4', 'SEO Analysis'], ['s5', 'GEO (AI Search)'], ['s6', 'Content Strategy'], ['s7', 'Product Strategy'], ['s8', 'UX Strategy'], ['s9', 'Business Funnel'], ['s10', 'Internal Link Map'], ['s11', 'Global Strategy'], ['s12', 'BECON SWOT'], ['s_aram1', 'Company & Product'], ['s_aram2', 'Global & SEO Hygiene'], ['s_cdx', 'Current Exposure Audit'], ['s_matrix', '3-Brand Matrix'], ['s13', '3사 평가표 (100점)'], ['s_no1', 'ChoiceDX 1위 전략'], ['s_brand', '브랜드 메시지·네이밍'], ['s14', 'Action Plan'], ['s15', 'PM Recommendation'], ['s16', 'Top 10 × 2']];
+const sections=[...document.querySelectorAll('section[id]')];
+const docItems=new Map([...document.querySelectorAll('.docitem')].map(a=>[a.dataset.sec,a]));
+const titleMap=new Map(docs);
+const headTitle=document.getElementById('headTitle'), headEyebrow=document.getElementById('headEyebrow'), tocList=document.getElementById('tocList');
+sections.forEach(sec=>{[...sec.querySelectorAll('h3')].forEach((h,i)=>{if(!h.id)h.id=sec.id+'-h'+i;});});
+function buildToc(sec){const hs=[...sec.querySelectorAll('h3')];tocList.innerHTML='';if(!hs.length){tocList.innerHTML='<span class="toc-empty">하위 항목 없음</span>';return;}hs.forEach(h=>{const a=document.createElement('a');a.href='#'+h.id;a.textContent=h.textContent;a.dataset.h=h.id;tocList.appendChild(a);});}
+let cur=null;
+function setActive(sec){if(sec===cur)return;cur=sec;docItems.forEach(a=>a.classList.remove('active'));const it=docItems.get(sec.id);if(it){it.classList.add('active');it.scrollIntoView({block:'nearest'});}headTitle.textContent=titleMap.get(sec.id)||'ChoiceDX Master Benchmark';const k=sec.querySelector('.kicker');headEyebrow.textContent=k?k.textContent.replace(/—.*/,'').trim()+' · 3-BRAND BENCHMARK':'MASTER DOCUMENTS';buildToc(sec);}
+const so=new IntersectionObserver(es=>{let b=null,r=0;es.forEach(e=>{if(e.isIntersecting&&e.intersectionRatio>r){r=e.intersectionRatio;b=e.target;}});if(b)setActive(b);},{rootMargin:'-80px 0px -60% 0px',threshold:[0,.25,.5,1]});
+sections.forEach(s=>so.observe(s));
+const ho=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){tocList.querySelectorAll('a').forEach(a=>a.classList.toggle('active',a.dataset.h===e.target.id));}});},{rootMargin:'-90px 0px -75% 0px'});
+sections.forEach(sec=>sec.querySelectorAll('h3').forEach(h=>ho.observe(h)));
+setActive(sections[0]);
+const sb=document.getElementById('searchBox');
+sb.addEventListener('input',()=>{const q=sb.value.trim().toLowerCase();docItems.forEach(a=>a.classList.toggle('hidden',q&&!a.textContent.toLowerCase().includes(q)));document.querySelectorAll('.doc-group').forEach(g=>g.style.display=q?'none':'');});
+
+function exportPDF(){
+  var styleHTML='';
+  document.querySelectorAll('head style').forEach(function(s){ styleHTML+=s.outerHTML; });
+  var fontLink='<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">';
+  var content=document.getElementById('content').innerHTML;
+  var cover='<div class="pdf-cover"><div class="pdf-eyebrow">teu.insight · Master Benchmark</div><div class="pdf-title">ChoiceDX Master Benchmark Report</div><div class="pdf-sub">BECON · ARAM HUVIS · ChoiceDX — 3사 비교 분석 · Confidential</div></div>';
+  var fixCss='<style>body{background:#fff;margin:0;color:var(--t2);} .pdf-wrap{max-width:900px;margin:0 auto;padding:28px 28px 60px;} .content{max-width:100%!important;padding:0!important;} section:first-of-type{padding-top:24px;border-top:none;} .pdf-cover{padding:0 0 22px;border-bottom:2px solid var(--ink);margin-bottom:4px;} .pdf-eyebrow{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);font-weight:700;} .pdf-title{font-size:30px;font-weight:800;letter-spacing:-0.035em;color:var(--ink);margin-top:6px;} .pdf-sub{color:#6E7780;margin-top:5px;font-size:14px;} @media print{ .pdf-wrap{max-width:100%;padding:0 4mm;} .tree{background:#fff!important;color:var(--ink)!important;border:1px solid #E6E9ED!important;} .tree .root{color:var(--ink)!important;} .tree .b{color:#1D63D8!important;} .tree .c{color:#3182F6!important;} .tree .m{color:#6E7780!important;} .card,.stat,.swot .q{box-shadow:none!important;} } @page{margin:14mm;}</style>';
+  var doc='<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><title>ChoiceDX Master Benchmark</title>'+fontLink+styleHTML+fixCss+'</head><body><div class="pdf-wrap">'+cover+content+'</div></body></html>';
+  var w=window.open('','_blank');
+  if(!w||!w.document){ alert('팝업이 차단되었습니다.\\n파일을 다운로드해 브라우저에서 직접 연 뒤 Cmd/Ctrl+P 를 눌러주세요.'); return; }
+  w.document.open(); w.document.write(doc); w.document.close(); w.focus();
+  setTimeout(function(){ try{ w.print(); }catch(e){} }, 900);
+}
+var _pb=document.getElementById('pdfBtn');
+if(_pb) _pb.addEventListener('click',exportPDF);
+
+</script>
+</body>
+</html>
