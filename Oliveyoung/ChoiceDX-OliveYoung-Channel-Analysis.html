@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>올리브영 채널 분석 · ChoiceDX</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  --ink:#14181C; --t1:#2A3037; --t2:#4C555E; --t3:#6C757D; --muted:#9AA1A9;
+  --line:#EAEDF0; --line2:#DFE3E7; --rule:#14181C; --soft:#FAFAFB; --hover:#F4F6F8;
+  --blue:#244A86; --blue-deep:#1A3866; --blue-soft:#F1F5FC;
+  --red:#E8392E; --red-soft:#FDF1F0;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:"Pretendard",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  --nav:288px; --toc:236px; --headh:78px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+*{scrollbar-width:thin;scrollbar-color:#E5E8EB transparent;}
+*::-webkit-scrollbar{width:10px;height:10px;}
+*::-webkit-scrollbar-track{background:transparent;}
+*::-webkit-scrollbar-thumb{background:#E9ECEF;border-radius:8px;border:2px solid #fff;}
+*::-webkit-scrollbar-thumb:hover{background:#D8DCE1;}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--t2);background:#fff;font-size:15.5px;line-height:1.78;
+  -webkit-font-smoothing:antialiased;letter-spacing:-0.011em;word-break:keep-all;overflow-wrap:break-word;
+  font-feature-settings:"ss01";}
+
+.layout{display:grid;grid-template-columns:var(--nav) 1fr;max-width:1540px;margin:0 auto;}
+
+/* nav */
+.docnav{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;
+  border-right:1px solid var(--line);padding:26px 18px 60px;background:#fff;}
+.search-label{font-size:11px;color:var(--muted);font-weight:600;margin:4px 8px 9px;}
+.search-box{width:100%;background:var(--hover);border:1px solid transparent;border-radius:8px;
+  padding:11px 13px;font-family:var(--sans);font-size:13.5px;color:var(--t1);outline:none;transition:.14s;}
+.search-box::placeholder{color:var(--muted);}
+.search-box:focus{background:#fff;border-color:var(--line2);box-shadow:0 0 0 3px var(--hover);}
+.doclist{margin-top:22px;display:flex;flex-direction:column;gap:1px;}
+.docitem{display:block;text-decoration:none;padding:8px 12px;border-radius:8px;transition:.14s;border-left:2px solid transparent;}
+.docitem .t{font-size:13.5px;font-weight:600;color:var(--t1);line-height:1.4;}
+.docitem .f{font-size:10.5px;color:var(--muted);font-family:var(--mono);margin-top:1px;letter-spacing:-0.02em;}
+.docitem:hover{background:var(--hover);}
+.docitem.active{background:transparent;border-left-color:var(--ink);}
+.docitem.active .t{color:var(--ink);font-weight:700;}
+.docitem.active .f{color:var(--t3);}
+.docitem.hidden{display:none;}
+.doc-group{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:22px 14px 7px;}
+.doc-group:first-of-type{margin-top:12px;}
+
+/* right */
+.right{min-width:0;}
+.dochead{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.82);backdrop-filter:saturate(180%) blur(14px);
+  -webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;
+  gap:20px;padding:16px 56px;height:var(--headh);}
+.dochead .eyebrow{font-size:10.5px;letter-spacing:.13em;font-weight:700;color:var(--t3);text-transform:uppercase;}
+.dochead .dtitle{font-size:23px;font-weight:800;color:var(--ink);letter-spacing:-0.035em;line-height:1.2;margin-top:3px;}
+.src-btn{flex:none;background:var(--ink);border:1px solid var(--ink);color:#fff;font-family:var(--sans);
+  font-weight:700;font-size:12.5px;padding:9px 17px;border-radius:8px;cursor:pointer;transition:.14s;white-space:nowrap;}
+.src-btn:hover{background:#000;}
+
+.docbody{display:grid;grid-template-columns:minmax(0,1fr) var(--toc);}
+.content{min-width:0;padding:16px 56px 110px;max-width:880px;}
+
+/* toc */
+.toc{position:sticky;top:var(--headh);align-self:start;height:calc(100vh - var(--headh));overflow-y:auto;padding:34px 22px 60px;}
+.toc-title{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:14px;letter-spacing:.1em;text-transform:uppercase;}
+.toc-list{display:flex;flex-direction:column;gap:1px;border-left:1px solid var(--line2);}
+.toc-list a{text-decoration:none;font-size:12px;color:var(--t3);padding:6px 0 6px 14px;margin-left:-1px;
+  border-left:1px solid transparent;line-height:1.45;transition:.14s;}
+.toc-list a:hover{color:var(--t1);}
+.toc-list a.active{color:var(--ink);border-left-color:var(--ink);font-weight:600;}
+.toc-empty{font-size:12px;color:var(--muted);padding-left:14px;}
+
+/* typography — editorial */
+section{padding:76px 0 8px;scroll-margin-top:calc(var(--headh) + 20px);}
+section + section{border-top:1px solid var(--line);}
+.kicker{font-size:11px;letter-spacing:.16em;color:var(--t3);font-weight:700;font-family:var(--mono);text-transform:uppercase;}
+h2{font-size:34px;font-weight:800;letter-spacing:-0.04em;line-height:1.14;margin:14px 0 10px;color:var(--ink);}
+.lead-sec{font-size:17px;color:var(--t3);max-width:680px;margin-bottom:8px;line-height:1.6;font-weight:400;}
+h3{font-size:19px;font-weight:800;letter-spacing:-0.025em;margin:48px 0 14px;color:var(--ink);
+  scroll-margin-top:calc(var(--headh) + 20px);padding-bottom:0;}
+h4{font-size:14px;font-weight:700;color:var(--t1);margin:26px 0 8px;letter-spacing:-0.01em;}
+p{margin:14px 0;color:var(--t2);}
+strong{color:var(--ink);font-weight:700;}
+ul,ol{margin:14px 0 14px 2px;padding-left:20px;color:var(--t2);}
+li{margin:7px 0;}
+li::marker{color:var(--muted);}
+code{font-family:var(--mono);font-size:.84em;background:var(--hover);padding:2px 6px;border-radius:5px;color:var(--t1);}
+
+/* cards → rule-based, no fill */
+.card{border:none;border-left:2px solid var(--line2);border-radius:0;background:none;box-shadow:none;
+  padding:4px 0 4px 22px;margin:26px 0;}
+.card .ct{font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:9px;display:block;}
+.card .ct::before{content:none;}
+.card p{margin:8px 0;font-size:15px;color:var(--t2);}
+.card p:first-of-type{color:var(--t1);}
+.card ul{margin:8px 0 2px;}
+.card.point{border-left-color:var(--blue);}
+.card.point .ct{color:var(--blue-deep);}
+.card.alert{border-left-color:var(--red);}
+.card.alert .ct{color:var(--red);}
+
+/* stats → minimal data band, top rule */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:30px 0;border-top:1.5px solid var(--rule);}
+.stat{padding:18px 22px 18px 0;background:none;border:none;border-radius:0;box-shadow:none;}
+.stat + .stat{border-left:1px solid var(--line);padding-left:22px;}
+.stat .v{font-size:34px;font-weight:800;color:var(--ink);line-height:1;letter-spacing:-0.035em;font-variant-numeric:tabular-nums;}
+.stat .v.b{color:var(--blue);} .stat .v.r{color:var(--red);}
+.stat .k{font-size:11.5px;color:var(--t3);margin-top:11px;line-height:1.45;}
+
+/* tables → horizontal rules only */
+table.data{width:100%;border-collapse:collapse;margin:24px 0;font-size:13.5px;border:none;box-shadow:none;border-radius:0;}
+table.data th{background:none;text-align:left;font-weight:700;color:var(--ink);padding:11px 16px 11px 0;
+  font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;border-bottom:1.5px solid var(--rule);}
+table.data td{padding:13px 16px 13px 0;border-bottom:1px solid var(--line);color:var(--t2);vertical-align:top;line-height:1.55;}
+table.data th:last-child,table.data td:last-child{padding-right:0;}
+table.data tr:last-child td{border-bottom:1px solid var(--line);}
+table.data td code{font-size:12px;}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;white-space:nowrap;letter-spacing:-0.01em;
+  padding:0;background:none;border-radius:0;}
+.tag.b{color:var(--blue-deep);} .tag.b::before{content:"▪ ";color:var(--blue);font-size:.8em;}
+.tag.r{color:var(--red);} .tag.r::before{content:"▪ ";font-size:.8em;}
+.tag.g{color:var(--t3);} .tag.g::before{content:"▫ ";color:var(--muted);font-size:.8em;}
+
+/* tree → light mono */
+.tree{background:var(--soft);color:var(--t1);border:1px solid var(--line2);border-radius:8px;padding:22px 24px;
+  margin:24px 0;font-family:var(--mono);font-size:12.5px;line-height:1.95;overflow-x:auto;box-shadow:none;}
+.tree .root{color:var(--ink);font-weight:700;} .tree .b{color:var(--ink);font-weight:600;}
+.tree .m{color:var(--muted);} .tree .c{color:var(--blue-deep);}
+
+/* flow */
+.flow{display:flex;align-items:stretch;flex-wrap:wrap;gap:8px;margin:8px 0;}
+.flow .node{flex:1;min-width:104px;background:none;border:1px solid var(--line2);border-radius:8px;padding:13px 14px;text-align:center;box-shadow:none;}
+.flow .node .s{font-family:var(--mono);font-size:9.5px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;}
+.flow .node .nm{font-weight:700;font-size:13px;margin-top:5px;color:var(--ink);}
+.flow .node .dt{font-size:11px;color:var(--t3);margin-top:3px;}
+.flow .arrow{display:flex;align-items:center;color:var(--line2);font-size:14px;}
+.flow .node.hl{border-color:var(--blue);background:none;}
+.flow .node.hl .nm{color:var(--blue-deep);}
+.flow .node.bad{border-color:var(--red);background:none;}
+.flow .node.bad .nm{color:var(--red);}
+.diagram{background:none;border:1px solid var(--line2);border-radius:10px;padding:24px;margin:24px 0;}
+.diagram h4{margin-top:0;}
+
+/* vfunnel */
+.vfun{margin:22px 0;}
+.vfun .row{display:flex;align-items:center;gap:14px;margin:6px 0;}
+.vfun .bar{height:38px;border-radius:4px;display:flex;align-items:center;padding:0 15px;color:#fff;
+  font-weight:600;font-size:12.5px;background:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-0.01em;}
+.vfun .meta{font-size:12.5px;color:var(--t3);flex:1;}
+
+/* swot — top rule per quadrant, no fill */
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:0 36px;margin:24px 0;}
+.swot .q{border:none;border-top:2px solid var(--line2);border-radius:0;padding:16px 0 22px;background:none;box-shadow:none;}
+.swot .q h4{margin:0 0 11px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;display:flex;justify-content:space-between;font-weight:700;color:var(--muted);}
+.swot .q ul{margin:0;padding-left:16px;font-size:13.5px;}
+.swot .q.pos{border-top-color:var(--blue);} .swot .q.pos h4{color:var(--blue-deep);}
+.swot .q.neg{border-top-color:var(--red);} .swot .q.neg h4{color:var(--red);}
+
+/* score */
+.score{margin:18px 0;}
+.score .line{display:flex;align-items:center;gap:14px;margin:11px 0;}
+.score .nm{width:172px;font-size:13px;font-weight:600;color:var(--t1);}
+.score .track{flex:1;height:6px;background:var(--hover);border-radius:0;overflow:hidden;}
+.score .fill{height:100%;border-radius:0;}
+.score .fill.b{background:var(--blue);} .score .fill.r{background:var(--red);} .score .fill.g{background:var(--muted);}
+.score .num{width:92px;text-align:right;font-family:var(--mono);font-size:12.5px;color:var(--t2);font-weight:600;font-variant-numeric:tabular-nums;}
+
+/* misc */
+.kv{display:grid;grid-template-columns:150px 1fr;gap:8px 20px;margin:16px 0;font-size:13.5px;}
+.kv dt{font-weight:700;color:var(--ink);}
+.kv dd{color:var(--t2);}
+.eg{font-family:var(--mono);font-size:11.5px;color:var(--t2);background:var(--soft);border:1px solid var(--line2);
+  border-radius:8px;padding:14px 16px;margin:12px 0;line-height:1.85;white-space:pre-wrap;word-break:break-all;}
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:4px;background:var(--hover);color:var(--t2);margin-right:5px;}
+.docfoot{padding:44px 56px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;}
+
+@media (max-width:1180px){:root{--toc:0px;} .toc{display:none;} .docbody{grid-template-columns:1fr;}}
+@media (max-width:880px){
+  :root{--nav:0px;} .docnav{display:none;} .layout{grid-template-columns:1fr;}
+  .dochead{padding:14px 20px;} .content{padding:16px 20px 70px;}
+  .stats{grid-template-columns:1fr 1fr;} .swot{grid-template-columns:1fr;gap:0;}
+  .stat + .stat:nth-child(odd){border-left:none;padding-left:0;}
+}
+@media print{
+  .docnav,.toc,.src-btn{display:none;}
+  .layout,.docbody{display:block;}
+  .dochead{position:static;backdrop-filter:none;-webkit-backdrop-filter:none;height:auto;padding:0 0 14px;border-bottom:2px solid var(--ink);margin-bottom:8px;}
+  .content{max-width:100%;padding:0 12mm;}
+  .right{padding:12mm 0;}
+  body{font-size:10.5px;line-height:1.55;}
+  h2{font-size:21px;}
+  .card,.diagram,.swot .q,table.data tr,.stats,.tree{page-break-inside:avoid;}
+  .sec-break{page-break-before:always;}
+  @page{margin:13mm;}
+}
+</style></head><body>
+<div class="layout">
+  <aside class="docnav">
+    <div class="search-label">Search</div>
+    <input class="search-box" id="searchBox" placeholder="문서 검색" autocomplete="off">
+    <nav class="doclist" id="docList">
+    <a class="docitem" href="#exec" data-sec="exec"><div class="t">Executive Summary</div><div class="f">00_SUMMARY.md</div></a>
+    <a class="docitem" href="#s1" data-sec="s1"><div class="t">생태계 3층 구조</div><div class="f">01_ECOSYSTEM.md</div></a>
+    <a class="docitem" href="#s2" data-sec="s2"><div class="t">전략 본부 (corp)</div><div class="f">02_CORP.md</div></a>
+    <a class="docitem" href="#s3" data-sec="s3"><div class="t">국내 매장 (묻힌 1위)</div><div class="f">03_DOMESTIC.md</div></a>
+    <a class="docitem" href="#s4" data-sec="s4"><div class="t">글로벌몰 (빈 칸)</div><div class="f">04_GLOBAL.md</div></a>
+    <a class="docitem" href="#s5" data-sec="s5"><div class="t">더모 정합성</div><div class="f">05_DERMO_FIT.md</div></a>
+    <a class="docitem" href="#s6" data-sec="s6"><div class="t">3단계 동반 전략</div><div class="f">06_JOINT_STRATEGY.md</div></a>
+    <a class="docitem" href="#s7" data-sec="s7"><div class="t">리스크</div><div class="f">07_RISKS.md</div></a>
+    <a class="docitem" href="#s8" data-sec="s8"><div class="t">실행 우선순위</div><div class="f">08_ACTION.md</div></a>
+    </nav>
+  </aside>
+  <div class="right">
+    <header class="dochead">
+      <div><div class="eyebrow" id="headEyebrow">CHANNEL ANALYSIS</div>
+      <div class="dtitle" id="headTitle">올리브영 생태계 분석</div></div>
+      <button class="src-btn" id="pdfBtn" type="button">PDF 저장</button>
+    </header>
+    <div class="docbody">
+      <main class="content" id="content">
+<!-- 00 EXEC -->
+<section id="exec">
+  <div class="kicker">00 — EXECUTIVE SUMMARY</div>
+  <h2>핵심 요약</h2>
+
+  <h3>한 장으로 보는 결론</h3>
+  <p>올리브영은 ChoiceDX의 여러 유통처 중 하나가 아니다. <strong>ChoiceDX의 가장 큰 자산이 묻혀 있는 곳이자, 앞으로 갈 길이 그대로 그려져 있는 채널</strong>이다. 사이트맵 세 벌(기업·국내·글로벌, 약 500개 URL)을 뜯어보면 올리브영은 단순한 H&amp;B 매장이 아니라 <strong>더모 트렌드를 발신하고, 자체 브랜드를 글로벌로 키우며, 데이터·기술에 투자하는 K뷰티 플랫폼 기업</strong>이라는 사실이 드러난다.</p>
+  <p>그리고 그 플랫폼이 지금 가장 크게 밀고 있는 트렌드 키워드가 <strong>‘Dermo(더모)’</strong>다. ChoiceDX의 자리(“더마 시대의 피부 실측 표준”)와 채널이 같은 방향을 보고 있다. 결론은 분명하다 — ChoiceDX는 올리브영의 <strong>입점사에 머무를 게 아니라, 올리브영의 더모·데이터 전략을 받치는 ‘측정 파트너’로 올라서야 한다.</strong></p>
+
+  <div class="stats">
+    <div class="stat"><div class="v b">3</div><div class="k">분석한 올리브영 도메인(기업·국내·글로벌)</div></div>
+    <div class="stat"><div class="v">100+</div><div class="k">SkinScan이 깔린 국내 매장</div></div>
+    <div class="stat"><div class="v">12</div><div class="k">올리브영 자체 브랜드(PB)</div></div>
+    <div class="stat"><div class="v b">Dermo</div><div class="k">올리브영 공식 트렌드 키워드</div></div>
+  </div>
+
+  <h3>세 가지 핵심 발견</h3>
+  <div class="card point">
+    <div class="ct">발견 1 — 올리브영이 ‘더모’를 직접 민다</div>
+    <p>기업 사이트의 트렌드 스튜디오(insight-studio)가 ‘Dermo’를 핵심 키워드로 다룬다. ChoiceDX의 ‘더마 실측’ 포지션과 채널 전략이 정확히 겹친다. 같은 카테고리를 ChoiceDX는 ‘측정’으로, 올리브영은 ‘트렌드·매대’로 보고 있을 뿐이다.</p>
+  </div>
+  <div class="card point">
+    <div class="ct">발견 2 — 올리브영은 데이터·기술 플랫폼이다</div>
+    <p>트렌드 발신(insight-studio·kbeauty-market), 기술 조직(oliveyoung.tech), 디지털 사업 강조(business/domestic 디지털 탭). 데이터에 진심인 회사라, ChoiceDX의 <strong>실측 피부 데이터</strong>가 올리브영이 원하는 조각이 될 수 있다.</p>
+  </div>
+  <div class="card point">
+    <div class="ct">발견 3 — 글로벌엔 ‘측정’이 통째로 비어 있다</div>
+    <p>글로벌몰은 카테고리·속성필터·제품·기획전뿐, 측정 레이어가 없다. 국내가 ‘이미 1위인데 안 알린’ 상태라면, 글로벌은 ‘아직 아무도 손대지 않은 빈 칸’이다.</p>
+  </div>
+
+  <h3>제안 — 3단계 동반 전략</h3>
+  <div class="card">
+    <div class="ct">한 줄 요약</div>
+    <p><strong>① 국내 귀속(지금) → ② 더모 데이터 파트너십(중기) → ③ 글로벌 측정 레이어(장기).</strong> 올리브영이 ‘더모·데이터·글로벌’로 달리는 방향에 ChoiceDX 실측을 정확히 올려놓는 그림이다.</p>
+  </div>
+</section>
+
+<!-- 01 -->
+<section id="s1" class="sec-break">
+  <div class="kicker">01 — ECOSYSTEM MAP</div>
+  <h2>올리브영 생태계 3층 구조</h2>
+  <p class="lead-sec">올리브영은 하나의 사이트가 아니라 역할이 다른 세 개의 도메인으로 굴러간다. ChoiceDX와의 접점도 층마다 다르다.</p>
+
+  <div class="tree">
+<span class="root">CJ 올리브영 — K뷰티 리테일 플랫폼</span>
+├─ <span class="b">corp.oliveyoung.com</span>  전략 본부 (기업·트렌드·PB·글로벌·ESG)
+│   └─ 더모 트렌드 발신 · 자체 브랜드 12개 · 3개 언어(ko/en/ja)
+├─ <span class="b">oliveyoung.co.kr</span>  국내 커머스 + 전국 매장
+│   └─ <span class="c">매장 100개+ SkinScan 측정</span>  ← ChoiceDX 자산
+└─ <span class="b">global.oliveyoung.com</span>  글로벌 직구 커머스
+    └─ <span class="c">측정 레이어 없음</span>  ← 빈 칸
+  </div>
+
+  <table class="data">
+    <thead><tr><th>레이어</th><th>도메인</th><th>성격</th><th>ChoiceDX 접점</th></tr></thead>
+    <tbody>
+      <tr><td>전략 본부</td><td><code>corp.oliveyoung.com</code></td><td>기업·IR·트렌드·PB·글로벌 (280 URL, 3개 언어)</td><td>측정 데이터 <strong>파트너</strong>로 격상</td></tr>
+      <tr><td>국내 커머스·매장</td><td><code>oliveyoung.co.kr</code></td><td>국내 1위 H&amp;B 커머스 + 오프라인 매장</td><td>100개 매장 측정 → <strong>귀속</strong></td></tr>
+      <tr><td>글로벌 커머스</td><td><code>global.oliveyoung.com</code></td><td>해외 직구몰 (227 URL, 측정 없음)</td><td>측정 레이어 <strong>선점</strong></td></tr>
+    </tbody>
+  </table>
+  <div class="card">
+    <div class="ct">읽는 법</div>
+    <p>세 층의 과제가 깔끔하게 갈린다 — 본부엔 <strong>파트너십</strong>, 국내엔 <strong>귀속</strong>, 글로벌엔 <strong>선점</strong>. 뒤 섹션은 이 셋을 차례로 푼다.</p>
+  </div>
+</section>
+
+<!-- 02 -->
+<section id="s2" class="sec-break">
+  <div class="kicker">02 — CORPORATE LAYER</div>
+  <h2>전략 본부 · corp.oliveyoung.com</h2>
+  <p class="lead-sec">280개 URL을 역으로 읽으면 올리브영이 ‘무엇이 되려는 회사’인지 보인다.</p>
+
+  <table class="data">
+    <thead><tr><th>섹션</th><th>URL</th><th>무엇을 말하나</th></tr></thead>
+    <tbody>
+      <tr><td>business</td><td>51</td><td>국내·글로벌·브랜드 사업 + 디지털 사업 별도 강조</td></tr>
+      <tr><td>news</td><td>44</td><td>PR·OYN·NOTE 카테고리로 보도 운영</td></tr>
+      <tr><td>trend</td><td>32</td><td><strong>insight-studio · kbeauty-market · global</strong> — 트렌드 발신 조직</td></tr>
+      <tr><td>sustainability</td><td>29</td><td>ESG·거버넌스·윤리 (글로벌 기업 수준)</td></tr>
+      <tr><td>company</td><td>18</td><td>비전·연혁·브랜드 스토리</td></tr>
+    </tbody>
+  </table>
+
+  <h3>자체 브랜드(PB) 12개 — 그리고 글로벌</h3>
+  <p>올리브영은 남의 제품만 파는 유통사가 아니다. <strong>boh · 브링그린 · 웨이크메이크 · 컬러그램 · 필리밀리 · careplus · 라운드어라운드</strong> 등 12개 자체 브랜드를 키우고, 이들을 해외로 내보내고 있다.</p>
+  <div class="kv">
+    <dt>Amazon (미국)</dt><dd>브링그린, 컬러그램 공식 스토어</dd>
+    <dt>Qoo10 (일본)</dt><dd>boh, 웨이크메이크 공식 숍</dd>
+    <dt>Douyin (중국)</dt><dd>PB 공식 계정 운영</dd>
+  </div>
+
+  <h3>데이터·기술 신호</h3>
+  <ul>
+    <li><code>oliveyoung.tech</code> — 별도 기술 조직/블로그 운영</li>
+    <li><code>business/domestic?tab=digital</code> — 디지털 사업을 별도 탭으로 강조</li>
+    <li>트렌드 스튜디오·K뷰티 마켓 — 시장 데이터를 콘텐츠로 발신</li>
+  </ul>
+  <div class="card point">
+    <div class="ct">ChoiceDX 시사점</div>
+    <p>올리브영은 ‘데이터로 뷰티를 읽는 회사’가 되려 한다. ChoiceDX가 가진 <strong>매장 단위 실측 데이터</strong>는 올리브영의 트렌드·PB·디지털 전략 어디에 붙여도 가치가 있다. ‘입점 벤더’가 아니라 ‘데이터 공급 파트너’로 대화의 격을 바꿀 근거가 여기 다 있다.</p>
+  </div>
+</section>
+
+<!-- 03 -->
+<section id="s3" class="sec-break">
+  <div class="kicker">03 — DOMESTIC LAYER</div>
+  <h2>국내 매장 · 묻혀 있는 1위</h2>
+  <p class="lead-sec">ChoiceDX의 가장 큰 자산이 가장 안 알려진 곳에 있다.</p>
+
+  <p>전국 100개가 넘는 올리브영 매장에서 SkinScan으로 고객 피부를 측정한다. 규모로만 보면 <strong>국내에서 가장 큰 피부 측정 접점</strong>이다. 경쟁사 누구도 이만한 오프라인 측정망을 못 가졌다. 그런데 이 사실이 두 군데서 새고 있다.</p>
+
+  <div class="card alert">
+    <div class="ct">새는 곳 1 — 소비자</div>
+    <p>매장에서 측정받은 고객은 그게 ChoiceDX 기술인 줄 모른다. 측정 화면·결과지·안내 어디에도 ChoiceDX 이름이 없으면, 좋은 경험의 신뢰는 전부 ‘올리브영’에만 쌓인다.</p>
+  </div>
+  <div class="card alert">
+    <div class="ct">새는 곳 2 — 업계(B2B)</div>
+    <p>도입을 검토하는 다른 리테일·브랜드도 SkinScan이 ChoiceDX 기술인 줄 모른다. 가장 강력한 영업 레퍼런스(올리브영 100개 매장)가 영업 현장에서 쓰이지 못한다.</p>
+  </div>
+
+  <div class="card point">
+    <div class="ct">핵심 — 통제 못 하는 채널이라 ‘귀속’이 전부다</div>
+    <p>올리브영은 ChoiceDX가 통제할 수 없는 채널이다. 그래서 매장 안에서 ChoiceDX 이름이 드러나지 않으면, 100개 매장이 만드는 신뢰가 ChoiceDX에는 한 톨도 돌아오지 않는다. <strong>‘SkinScan by ChoiceDX’ 출처 표기</strong>가 1순위 과제인 이유가 바로 이 구조다.</p>
+  </div>
+</section>
+
+<!-- 04 -->
+<section id="s4" class="sec-break">
+  <div class="kicker">04 — GLOBAL LAYER</div>
+  <h2>글로벌몰 · 비어 있는 칸</h2>
+  <p class="lead-sec">global.oliveyoung.com 227개 URL에서 ‘측정’이라는 단어는 한 번도 나오지 않는다.</p>
+
+  <table class="data">
+    <thead><tr><th>구성</th><th>규모</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td>카테고리 × 속성필터</td><td>141</td><td>57개 카테고리 × 67개 속성(피부타입·vegan·cleanbeauty 등)</td></tr>
+      <tr><td>제품·기획전·기획페이지</td><td>다수</td><td>product/detail · 베스트셀러 · 신상 · 플래시딜 · 브랜드관</td></tr>
+      <tr><td>인플루언서·SNS</td><td>—</td><td>influencer 채널 · TikTok·Instagram <code>@oliveyoung_global</code></td></tr>
+    </tbody>
+  </table>
+
+  <div class="card point">
+    <div class="ct">빈 칸의 정체</div>
+    <p>글로벌몰은 “제품을 어떻게 고를지”는 필터로 풀어주지만 “내 피부가 뭔지”는 풀어주지 않는다. 고객은 vegan·건성·지성 필터로 알아서 골라야 한다. <strong>여기에 SkinScan이 ‘측정해서 골라준다’로 들어가면, 글로벌몰에 없는 가치를 ChoiceDX가 가장 먼저 채운다.</strong></p>
+  </div>
+  <div class="card">
+    <div class="ct">데이터 궁합</div>
+    <p>올리브영이 제품을 이미 67개 속성(<code>attrValNo</code>)으로 태깅해 두었다. ChoiceDX 측정 결과(피부 항목)를 이 속성 체계에 매핑하면 “측정 → 필터 자동 적용 → 제품”이 기술적으로 깔끔하게 이어진다. 새 시스템이 아니라 매핑만으로 연결된다.</p>
+  </div>
+</section>
+
+<!-- 05 -->
+<section id="s5" class="sec-break">
+  <div class="kicker">05 — POSITIONING FIT</div>
+  <h2>‘더모’ 정합성 — 포지션과 채널이 같은 곳을 본다</h2>
+  <p class="lead-sec">이 보고서에서 가장 중요한 한 가지.</p>
+
+  <div class="diagram">
+    <div class="flow">
+      <div class="node hl"><div class="s">CHOICEDX</div><div class="nm">더마 실측 표준</div><div class="dt">Skin ID</div></div>
+      <div class="arrow">↔</div>
+      <div class="node hl"><div class="s">OLIVE YOUNG</div><div class="nm">Dermo 트렌드</div><div class="dt">insight-studio</div></div>
+    </div>
+  </div>
+
+  <p>올리브영 트렌드 스튜디오가 공식 키워드로 <strong>‘Dermo(더모)’</strong>와 <strong>‘Wellness’</strong>를 다룬다. ChoiceDX가 차지하려는 자리 — “더마 시대의 피부 실측 표준” — 과 정확히 같은 카테고리다. 같은 시장을 ChoiceDX는 ‘측정’으로, 올리브영은 ‘트렌드와 매대’로 본다.</p>
+
+  <div class="card point">
+    <div class="ct">왜 이게 결정적인가</div>
+    <p>보통 입점사는 채널의 매대 한 칸을 빌린다. 그런데 ChoiceDX는 채널이 <strong>전사 차원에서 밀고 있는 트렌드(더모)를 데이터로 증명해 줄 수 있는</strong> 거의 유일한 파트너다. “올리브영이 더모를 말할 때, 그 근거 데이터를 ChoiceDX가 댄다” — 이 관계가 성립하면 ChoiceDX는 매대가 아니라 올리브영 더모 전략의 인프라가 된다.</p>
+  </div>
+</section>
+
+<!-- 06 -->
+<section id="s6" class="sec-break">
+  <div class="kicker">06 — JOINT STRATEGY</div>
+  <h2>ChoiceDX × 올리브영 · 3단계 전략</h2>
+
+  <h3>1단계 · 지금 — 국내 귀속</h3>
+  <table class="data">
+    <thead><tr><th>할 일</th><th>이유</th></tr></thead>
+    <tbody>
+      <tr><td>매장 측정 화면·결과지·안내에 ‘SkinScan by ChoiceDX’ 표기</td><td>100개 매장 신뢰를 ChoiceDX로 되돌린다</td></tr>
+      <tr><td>‘전국 100개+ 매장이 쓰는 피부 측정’을 자사 홈·영업자료 전면에</td><td>가장 센 레퍼런스를 영업 무기로 전환</td></tr>
+      <tr><td>측정 결과지 QR/링크로 ChoiceDX 채널 연결</td><td>오프라인 측정을 자사 접점으로 이음</td></tr>
+    </tbody>
+  </table>
+
+  <h3>2단계 · 중기 — 더모 데이터 파트너십</h3>
+  <table class="data">
+    <thead><tr><th>할 일</th><th>이유</th></tr></thead>
+    <tbody>
+      <tr><td>매장 측정 데이터를 익명·집계해 ‘더모 트렌드 리포트’로 가공</td><td>올리브영 insight-studio·kbeauty-market에 공급할 자산</td></tr>
+      <tr><td>측정 결과 → 올리브영 PB/제품 추천 연결 제안</td><td>측정 데이터로 PB 매출 근거 제공</td></tr>
+      <tr><td>‘올리브영이 더모를 말할 때 근거는 ChoiceDX’ 관계 제안</td><td>입점사 → 데이터 파트너로 격상</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3단계 · 장기 — 글로벌 측정 레이어</h3>
+  <table class="data">
+    <thead><tr><th>할 일</th><th>이유</th></tr></thead>
+    <tbody>
+      <tr><td>글로벌몰에 ‘측정 기반 추천’ 레이어 제안 (속성필터와 매핑)</td><td>글로벌몰의 빈 칸을 가장 먼저 선점</td></tr>
+      <tr><td>글로벌 PB·인플루언서·@oliveyoung_global 채널에 측정 콘텐츠 동반</td><td>준비된 글로벌 유통·미디어에 올라탐</td></tr>
+      <tr><td>해외 매장 확장 시 SkinScan 동반 진출</td><td>올리브영 글로벌과 함께 측정 표준 수출</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 07 -->
+<section id="s7" class="sec-break">
+  <div class="kicker">07 — RISKS</div>
+  <h2>리스크와 주의점</h2>
+
+  <div class="card alert">
+    <div class="ct">리스크 1 — 갑을 관계</div>
+    <p>올리브영은 ChoiceDX보다 압도적으로 큰 채널이다. 귀속·데이터 사용·노출 방식은 모두 올리브영 동의가 필요하다. 그래서 ‘요청’이 아니라 ‘올리브영에도 이득’이라는 논리(더모 근거·PB 매출)로 설계해야 한다.</p>
+  </div>
+  <div class="card alert">
+    <div class="ct">리스크 2 — 자체 내재화 위협</div>
+    <p>올리브영이 데이터·기술에 투자하는 만큼, 측정 솔루션을 직접 만들 수도 있다. ChoiceDX는 ‘이미 100개 매장에서 검증된 표준’이라는 선점 이점을 빠르게 굳혀야 한다.</p>
+  </div>
+  <div class="card">
+    <div class="ct">데이터 주의</div>
+    <p>웹스카우트가 처음 수집한 <code>stg1.oliveyoung.co.kr</code>은 테스트(스테이징) 서버라 본 분석에서 제외했다. 본 보고서는 기업(corp)·글로벌(global) 실서비스 사이트맵을 근거로 한다.</p>
+  </div>
+</section>
+
+<!-- 08 -->
+<section id="s8" class="sec-break">
+  <div class="kicker">08 — ACTION</div>
+  <h2>실행 우선순위</h2>
+  <table class="data">
+    <thead><tr><th>순위</th><th>액션</th><th>시점</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag b">P0</span></td><td>SkinScan 측정 접점에 ‘by ChoiceDX’ 귀속 표기 협의·적용</td><td>즉시</td></tr>
+      <tr><td><span class="tag b">P0</span></td><td>‘올리브영 100개+ 매장’ 메시지를 자사 홈·영업자료 전면 배치</td><td>즉시</td></tr>
+      <tr><td><span class="tag b">P1</span></td><td>올리브영 도입 사례를 케이스 스터디로 정식 발행</td><td>30일</td></tr>
+      <tr><td><span class="tag b">P1</span></td><td>매장 측정 데이터 → 더모 트렌드 리포트 시안 제작</td><td>60일</td></tr>
+      <tr><td><span class="tag g">P2</span></td><td>글로벌몰 ‘측정 기반 추천’ 레이어 제안서</td><td>90일+</td></tr>
+      <tr><td><span class="tag g">P2</span></td><td>PB 추천 연결·데이터 파트너십 제안</td><td>90일+</td></tr>
+    </tbody>
+  </table>
+  <div class="card point">
+    <div class="ct">마지막 한 줄</div>
+    <p>올리브영은 ChoiceDX가 ‘운이 좋아 들어간 매장’이 아니라, <strong>더모·데이터·글로벌이라는 같은 목적지를 향해 먼저 깔아둔 길</strong>이다. 지금 할 일은 그 길 위에 ChoiceDX의 이름을 새기는 것 하나다.</p>
+  </div>
+</section>
+
+      </main>
+      <aside class="toc"><div class="toc-title">On this page</div><nav class="toc-list" id="tocList"></nav></aside>
+    </div>
+    <div class="docfoot">teu.insight · 올리브영 생태계 채널 분석 — ChoiceDX 동반 성장 전략 · Confidential<br>데이터 · corp 280 / global 227 URLs · 작성 이세영</div>
+  </div>
+</div>
+<button class="printbtn" onclick="window.print()" style="display:none"></button>
+<script>
+const docs=[['exec', 'Executive Summary'], ['s1', '생태계 3층 구조'], ['s2', '전략 본부 (corp)'], ['s3', '국내 매장 (묻힌 1위)'], ['s4', '글로벌몰 (빈 칸)'], ['s5', '더모 정합성'], ['s6', '3단계 동반 전략'], ['s7', '리스크'], ['s8', '실행 우선순위']];
+const sections=[...document.querySelectorAll('section[id]')];
+const docItems=new Map([...document.querySelectorAll('.docitem')].map(a=>[a.dataset.sec,a]));
+const titleMap=new Map(docs);
+const headTitle=document.getElementById('headTitle'),headEyebrow=document.getElementById('headEyebrow'),tocList=document.getElementById('tocList');
+sections.forEach(sec=>{[...sec.querySelectorAll('h3')].forEach((h,i)=>{if(!h.id)h.id=sec.id+'-h'+i;});});
+function buildToc(sec){const hs=[...sec.querySelectorAll('h3')];tocList.innerHTML='';if(!hs.length){tocList.innerHTML='<span class="toc-empty">하위 항목 없음</span>';return;}hs.forEach(h=>{const a=document.createElement('a');a.href='#'+h.id;a.textContent=h.textContent;a.dataset.h=h.id;tocList.appendChild(a);});}
+let cur=null;
+function setActive(sec){if(sec===cur)return;cur=sec;docItems.forEach(a=>a.classList.remove('active'));const it=docItems.get(sec.id);if(it){it.classList.add('active');it.scrollIntoView({block:'nearest'});}headTitle.textContent=titleMap.get(sec.id)||'올리브영 생태계 분석';const k=sec.querySelector('.kicker');headEyebrow.textContent=k?k.textContent.replace(/—.*/,'').trim()+' · OLIVE YOUNG':'CHANNEL ANALYSIS';buildToc(sec);}
+const so=new IntersectionObserver(es=>{let b=null,r=0;es.forEach(e=>{if(e.isIntersecting&&e.intersectionRatio>r){r=e.intersectionRatio;b=e.target;}});if(b)setActive(b);},{rootMargin:'-80px 0px -60% 0px',threshold:[0,.25,.5,1]});
+sections.forEach(s=>so.observe(s));
+const ho=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){tocList.querySelectorAll('a').forEach(a=>a.classList.toggle('active',a.dataset.h===e.target.id));}});},{rootMargin:'-90px 0px -75% 0px'});
+sections.forEach(sec=>sec.querySelectorAll('h3').forEach(h=>ho.observe(h)));
+setActive(sections[0]);
+function exportPDF(){try{if(window.self!==window.top){var w=window.open('','_blank');if(w&&w.document){w.document.open();w.document.write('<!DOCTYPE html>'+document.documentElement.outerHTML);w.document.close();w.focus();setTimeout(function(){try{w.print();}catch(e){}},700);return;}alert('미리보기에서는 인쇄가 제한됩니다. 파일을 받아 브라우저에서 열고 Cmd/Ctrl+P 하세요.');return;}window.print();}catch(e){try{window.print();}catch(_){}}}
+document.getElementById('pdfBtn').addEventListener('click',exportPDF);
+const sb=document.getElementById('searchBox');
+sb.addEventListener('input',()=>{const q=sb.value.trim().toLowerCase();docItems.forEach(a=>a.classList.toggle('hidden',q&&!a.textContent.toLowerCase().includes(q)));});
+</script></body></html>
