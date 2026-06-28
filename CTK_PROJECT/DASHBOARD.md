@@ -100,6 +100,8 @@
 |  | ARAM Huvis 노출 URL 인벤토리 작성 | ARAMHUVIS_CURRENT_EXPOSURE_URLS.md | PM | Competitor Analysis |  |
 |  | ARAM Huvis Evidence-Based SWOT 반영 | COMPETITOR_ANALYSIS_FRAMEWORK.md | PM | Competitor Report | URL 구조 기준 1차 분석 |
 |  | 경쟁사 SWOT 재분석 및 ChoiceDX 차별화 전략 작성 | COMPETITOR_SWOT_ANALYSIS.md | PM | Competitor Report | 파일명 기준으로 BECON / ARAM Huvis / ChoiceDX 재분류 |
+|  | 범용 브랜드 성장 플레이북 별도 분리 | outputs/REUSABLE_TEMPLATES/REUSABLE_BRAND_GROWTH_PLAYBOOK.md | PM | Reusable Template | CTK 문서와 분리해 다른 사업분야 적용 가능 |
+|  | 프로젝트 QA 리포트 작성 | PROJECT_QA_REPORT.md | PM | QA | 문서/사이트 구조 점검 |
 
 ---
 
