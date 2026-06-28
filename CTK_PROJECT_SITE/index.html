@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CTK ChoiceDX Project Hub</title>
+    <meta
+      name="description"
+      content="CTK ChoiceDX brand growth project dashboard, roadmap, backlog, deliverables, SEO, GEO, and UX audit documents."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand-block">
+          <p class="eyebrow">CTK ChoiceDX</p>
+          <h1>Project Hub</h1>
+          <p class="sidebar-copy">Brand Growth PM workspace</p>
+        </div>
+
+        <label class="search-box" for="searchInput">
+          <span>Search</span>
+          <input id="searchInput" type="search" placeholder="문서 검색" autocomplete="off" />
+        </label>
+
+        <nav class="doc-nav" id="docNav" aria-label="Project documents"></nav>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <button class="menu-button" id="menuButton" type="button" aria-label="Open document menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div>
+            <p class="eyebrow">Master documents</p>
+            <h2 id="currentTitle">Project Hub</h2>
+          </div>
+          <a class="source-link" id="sourceLink" href="../CTK_PROJECT/" target="_blank" rel="noreferrer">
+            Source MD
+          </a>
+        </header>
+
+        <section class="summary-grid" aria-label="Project summary">
+          <article class="summary-card">
+            <span class="summary-label">Operating Rule</span>
+            <strong>Analysis first</strong>
+            <p>IA, competitor comparison, SEO/GEO, documentation, and next action stay connected.</p>
+          </article>
+          <article class="summary-card">
+            <span class="summary-label">Timeline</span>
+            <strong>July to September</strong>
+            <p>Diagnosis, strategy, execution review, and handover are managed by weekly outputs.</p>
+          </article>
+          <article class="summary-card">
+            <span class="summary-label">Current Focus</span>
+            <strong>P0 inputs</strong>
+            <p>Website URL, product definition, competitors, KPI, legal guardrails, and source assets.</p>
+          </article>
+        </section>
+
+        <section class="content-layout">
+          <article class="document-card">
+            <div class="doc-meta">
+              <span id="docFile">Document</span>
+              <span id="docCount">0 docs</span>
+            </div>
+            <div class="document-content" id="documentContent"></div>
+          </article>
+
+          <aside class="toc-panel">
+            <p class="toc-title">On this page</p>
+            <nav id="tocNav" aria-label="On this page"></nav>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <script src="./docs-data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
+
