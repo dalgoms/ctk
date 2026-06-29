@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChoiceDx 공식 홈페이지 GEO/SEO 운영 가이드북</title>
+  <style>
+    :root {
+      --ink: #202124;
+      --muted: #5f6368;
+      --line: #d9dee8;
+      --soft: #f5f7fb;
+      --paper: #ffffff;
+      --brand: #0064ff;
+      --brand-dark: #0047b3;
+      --accent: #b45309;
+      --blue-soft: #eaf1ff;
+      --green-soft: #eef8f3;
+      --amber-soft: #fff4df;
+      --rose-soft: #fff0f3;
+      --shadow: 0 16px 40px rgba(32, 33, 36, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-print-color-adjust: exact; print-color-adjust: exact; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #eef2f7;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", "Apple SD Gothic Neo", Arial, sans-serif;
+      line-height: 1.65;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+    a { color: var(--brand-dark); }
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: var(--shadow);
+    }
+    .hero {
+      padding: 62px 48px 52px;
+      background: #050505;
+      color: #fff;
+    }
+    .eyebrow {
+      margin: 0 0 12px;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0;
+      opacity: 0.92;
+    }
+    h1 {
+      margin: 0;
+      max-width: 920px;
+      font-size: 40px;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+    .hero p {
+      max-width: 840px;
+      margin: 18px 0 0;
+      font-size: 17px;
+      opacity: 0.96;
+    }
+    .content {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 28px;
+      padding: 34px 38px 56px;
+    }
+    .sidebar {
+      position: sticky;
+      top: 0;
+      align-self: start;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+    .sidebar h2 { margin: 0 0 10px; font-size: 15px; }
+    .nav-group {
+      margin: 14px 0 5px;
+      color: var(--brand-dark);
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .sidebar a {
+      display: block;
+      padding: 8px 0;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      border-top: 1px solid #edf0f5;
+    }
+    .sidebar a:hover { color: var(--brand-dark); }
+    main section { margin-bottom: 34px; padding-bottom: 4px; }
+    .section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 10px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: var(--green-soft);
+      color: var(--brand-dark);
+      font-size: 12px;
+      font-weight: 900;
+    }
+    h2 { margin: 0 0 14px; font-size: 26px; line-height: 1.3; letter-spacing: 0; }
+    h3 { margin: 22px 0 10px; font-size: 19px; letter-spacing: 0; }
+    p { margin: 0 0 12px; }
+    .lead { color: var(--muted); font-size: 16px; }
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0 22px;
+    }
+    .step-card {
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--brand);
+      border-radius: 8px;
+      padding: 14px;
+      background: #fff;
+      min-height: 150px;
+    }
+    .step-card .num {
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      margin-bottom: 9px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .step-card strong { display: block; margin-bottom: 6px; line-height: 1.35; }
+    .step-card span { display: block; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .phase-strip { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 18px; }
+    .phase-strip a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .band {
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--brand);
+      border-radius: 8px;
+      padding: 18px 20px;
+      background: #fff;
+      margin: 16px 0;
+    }
+    .band.amber { border-left-color: var(--accent); background: var(--amber-soft); }
+    .band.blue { background: var(--blue-soft); }
+    .band.green { background: var(--green-soft); }
+    .band.rose { border-left-color: #be123c; background: var(--rose-soft); }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 16px;
+    }
+    .card h3 { margin-top: 0; font-size: 17px; }
+    ul, ol { padding-left: 22px; margin: 8px 0 14px; }
+    li { margin: 5px 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      font-size: 14px;
+      background: #fff;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 10px 11px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: var(--soft); font-weight: 800; }
+    .checklist { display: grid; gap: 8px; margin: 14px 0; }
+    .check {
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      border: 1px solid #e7ebf2;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: #fff;
+    }
+    .box {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--brand);
+      border-radius: 4px;
+      margin-top: 3px;
+    }
+    .prompt {
+      position: relative;
+      margin: 14px 0 22px;
+      border: 1px solid #cfd6e3;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #101828;
+    }
+    .prompt-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      background: #1f2937;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .copy-btn {
+      appearance: none;
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      padding: 7px 10px;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    pre {
+      margin: 0;
+      padding: 16px;
+      overflow: auto;
+      color: #f8fafc;
+      font-size: 13px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: keep-all;
+    }
+    code { font-family: Consolas, "SFMono-Regular", Menlo, monospace; }
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 4px 9px;
+      margin: 2px 4px 2px 0;
+      background: var(--soft);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 48px 44px;
+      color: var(--muted);
+      background: #fafbfe;
+      font-size: 14px;
+    }
+    @media (max-width: 900px) {
+      .hero { padding: 38px 22px 34px; }
+      h1 { font-size: 30px; }
+      .hero p { font-size: 16px; }
+      .workflow, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .content { grid-template-columns: 1fr; padding: 24px 20px 40px; }
+      .sidebar { position: static; }
+      table { font-size: 13px; }
+      th, td { padding: 8px; }
+    }
+    @media print {
+      body { background: #fff; }
+      .page { box-shadow: none; max-width: none; }
+      .sidebar, .copy-btn { display: none; }
+      .content { display: block; padding: 24px; }
+      .hero { background: #050505 !important; color: #fff; }
+      .prompt { background: #fff; page-break-inside: avoid; }
+      .prompt-head { color: #111; background: #eee; }
+      pre { color: #111; border-top: 1px solid #ccc; }
+      section { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <p class="eyebrow">CHOICEDX HOMEPAGE GEO / SEO PLAYBOOK</p>
+      <h1>ChoiceDx 공식 홈페이지 전용 GEO/SEO 운영 가이드북</h1>
+      <p>올리브영 스킨스캔과 ChoiceDx의 연결 신호를 4개국어로 강화하기 위한 실무형 안내서입니다. 담당자가 Wix에서 페이지별 문구, 메타 정보, FAQ, 내부 링크, 검수 기준을 바로 적용할 수 있도록 구성했습니다.</p>
+    </header>
+
+    <div class="content">
+      <nav class="sidebar" aria-label="목차">
+        <h2>목차</h2>
+        <div class="nav-group">1. 시작하기</div>
+        <a href="#start-here">실행 순서</a>
+        <a href="#goal">목표와 원칙</a>
+        <a href="#risk">표현 수위</a>
+        <div class="nav-group">2. 페이지 적용</div>
+        <a href="#page-map">URL별 작업표</a>
+        <a href="#homepage">메인 페이지</a>
+        <a href="#solution">AI 솔루션 페이지</a>
+        <a href="#global">글로벌/문의 페이지</a>
+        <div class="nav-group">3. 4개국어 문구</div>
+        <a href="#copy-blocks">핵심 문구</a>
+        <a href="#meta">SEO 메타</a>
+        <a href="#faq">FAQ</a>
+        <a href="#schema">구조화 데이터</a>
+        <div class="nav-group">4. 운영</div>
+        <a href="#links">내부 링크</a>
+        <a href="#wix">Wix 체크리스트</a>
+        <a href="#calendar">2주 실행 일정</a>
+        <a href="#quality">검수 기준</a>
+      </nav>
+
+      <main>
+        <section id="start-here">
+          <span class="section-kicker">START HERE</span>
+          <h2>먼저 이 순서대로 진행하세요</h2>
+          <p class="lead">목표는 검색엔진과 AI가 “Olive Young Skin Scan”을 볼 때 ChoiceDx를 함께 떠올리도록 만드는 것입니다. 한 번에 모든 페이지를 바꾸기보다 핵심 페이지부터 신호를 강하게 심습니다.</p>
+          <div class="workflow">
+            <div class="step-card">
+              <span class="num">1</span>
+              <strong>핵심 문장 통일</strong>
+              <span>4개국어에서 “올리브영 스킨스캔에 적용된 AI 피부 분석 기술은 ChoiceDx”라는 표현을 반복합니다.</span>
+            </div>
+            <div class="step-card">
+              <span class="num">2</span>
+              <strong>메인에 노출</strong>
+              <span>메인 첫 화면 아래 또는 레퍼런스 섹션에 Olive Young Skin Scan 문구를 배치합니다.</span>
+            </div>
+            <div class="step-card">
+              <span class="num">3</span>
+              <strong>솔루션 페이지 강화</strong>
+              <span>AI Diagnosis Solution 페이지를 대표 설명 페이지로 사용합니다.</span>
+            </div>
+            <div class="step-card">
+              <span class="num">4</span>
+              <strong>FAQ 추가</strong>
+              <span>질문형 검색에 대응하도록 “어떤 기술을 사용하나요?” FAQ를 넣습니다.</span>
+            </div>
+            <div class="step-card">
+              <span class="num">5</span>
+              <strong>색인 요청</strong>
+              <span>Wix 발행 후 Google Search Console과 네이버 서치어드바이저에서 재수집을 요청합니다.</span>
+            </div>
+          </div>
+          <div class="phase-strip">
+            <a href="#copy-blocks">4개국어 문구 복사</a>
+            <a href="#page-map">URL별 작업 확인</a>
+            <a href="#meta">메타 문구 복사</a>
+            <a href="#faq">FAQ 복사</a>
+            <a href="#quality">발행 전 검수</a>
+          </div>
+        </section>
+
+        <section id="goal">
+          <span class="section-kicker">STEP 1 · 전략</span>
+          <h2>1. 목표와 핵심 원칙</h2>
+          <div class="band green">
+            <strong>한 줄 목표:</strong> ChoiceDx 공식 홈페이지 전체에서 Olive Young Skin Scan, 올리브영 스킨스캔, AI skin analysis, 피부진단 솔루션의 연결성을 반복해서 만든다.
+          </div>
+          <table>
+            <thead>
+              <tr><th>구분</th><th>운영 원칙</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>핵심 엔티티</td><td>ChoiceDx, 초이스디엑스, Choicetech Korea, 초이스테크코리아, Olive Young Skin Scan, 올리브영 스킨스캔</td></tr>
+              <tr><td>핵심 카테고리</td><td>AI 피부 분석, AI skin analysis, skin diagnosis solution, 피부진단기, 피부·두피 진단 솔루션</td></tr>
+              <tr><td>적용 위치</td><td>메인, AI Diagnosis Solution, Global Business, 제품 상세, Contact, FAQ</td></tr>
+              <tr><td>반복 방식</td><td>제목 1회, 본문 1~2회, FAQ 1회, 이미지 alt 1회, 내부 링크 1회</td></tr>
+              <tr><td>성과 기준</td><td>site:choicedx.com Olive Young, site:choicedx.com 올리브영, Google/네이버 색인 여부, 브랜드 검색 유입</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="risk">
+          <span class="section-kicker">STEP 2 · 표현 수위</span>
+          <h2>2. 안전하지만 강한 표현 기준</h2>
+          <p class="lead">계약서상 “공식 파트너” 표현이 허용되는지 확인 전까지는 사실 관계를 강하게 전달하되, 독점·공식·인증 같은 표현은 피합니다.</p>
+          <table>
+            <thead>
+              <tr><th>추천 표현</th><th>주의 표현</th><th>이유</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>적용된 AI 피부 분석 기술</td><td>공식 독점 기술</td><td>독점 여부를 공개 문구로 단정하지 않음</td></tr>
+              <tr><td>technology behind Olive Young Skin Scan</td><td>official exclusive partner</td><td>공식 파트너 문구는 계약 확인 후 사용</td></tr>
+              <tr><td>used for / applied to</td><td>certified by Olive Young</td><td>인증 표현은 증빙이 있을 때만 사용</td></tr>
+              <tr><td>supports in-store consultation</td><td>medical diagnosis</td><td>의료 진단 오해를 피하고 뷰티 상담 맥락 유지</td></tr>
+            </tbody>
+          </table>
+          <div class="band amber">
+            <strong>추천 톤:</strong> “올리브영 스킨스캔에 적용된 기술은 ChoiceDx입니다”는 충분히 강합니다. 다만 “공식”, “독점”, “인증”은 내부 확인 후에만 사용하세요.
+          </div>
+        </section>
+
+        <section id="page-map">
+          <span class="section-kicker">STEP 3 · 페이지별 적용</span>
+          <h2>3. URL별 작업표</h2>
+          <table>
+            <thead>
+              <tr><th>URL</th><th>역할</th><th>작업</th><th>우선순위</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>choicedx.com</td><td>브랜드 대표 페이지</td><td>첫 화면 아래에 4개국어 핵심 문구와 Olive Young Skin Scan 레퍼런스 블록 추가</td><td>상</td></tr>
+              <tr><td>/ai-diagnosis-solution</td><td>대표 SEO 랜딩</td><td>제목, 메타, FAQ를 Olive Young Skin Scan + ChoiceDx 중심으로 강화</td><td>최상</td></tr>
+              <tr><td>/global-business</td><td>레퍼런스/수출 신뢰</td><td>글로벌 리테일 적용 사례 문맥에 Olive Young Skin Scan 언급</td><td>상</td></tr>
+              <tr><td>/product</td><td>제품군 허브</td><td>Dx-Smart, Dx-Prime, Dx-Self가 스킨스캔 경험을 구성하는 제품군임을 설명</td><td>중</td></tr>
+              <tr><td>/product/dx-smart</td><td>피부·모발 진단 제품</td><td>Olive Young Skin Scan 관련 내부 링크와 이미지 alt 추가</td><td>중</td></tr>
+              <tr><td>/product/dx-prime</td><td>전문가용 제품</td><td>매장 상담형 피부·두피 진단 경험 문구 추가</td><td>중</td></tr>
+              <tr><td>/product/dx-pico</td><td>휴대형 제품</td><td>두피·모발 진단 키워드와 ChoiceDx 엔티티 강화</td><td>중</td></tr>
+              <tr><td>/product/dx-self</td><td>셀프 진단</td><td>셀프 스킨스캔, in-store self scan 문구 추가</td><td>중</td></tr>
+              <tr><td>/measurement</td><td>측정 항목 설명</td><td>피부 측정 항목이 스킨스캔 경험으로 연결되는 설명 추가</td><td>중</td></tr>
+              <tr><td>/contact</td><td>문의 전환</td><td>“올리브영 스킨스캔 적용 기술 문의” CTA 추가</td><td>상</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="homepage">
+          <span class="section-kicker">STEP 4 · 메인 페이지</span>
+          <h2>4. 메인 페이지에 넣을 섹션</h2>
+          <p class="lead">메인에는 길게 설명하기보다 “누가 봐도 연결되는” 짧은 레퍼런스 블록이 좋습니다.</p>
+          <div class="prompt">
+            <div class="prompt-head">
+              <span>메인 페이지 섹션 문구</span>
+              <button class="copy-btn" data-copy="homepage-copy">복사</button>
+            </div>
+            <pre id="homepage-copy"><code>섹션 제목
+Olive Young Skin Scan, powered by ChoiceDx AI skin analysis technology
+
+한국어
+올리브영 스킨스캔에 적용된 AI 피부 분석 기술은 초이스테크코리아의 ChoiceDx입니다. ChoiceDx는 피부와 두피 이미지를 분석해 매장 상담과 개인화된 뷰티 경험을 지원합니다.
+
+English
+ChoiceDx is the AI skin analysis technology behind Olive Young Skin Scan. Developed by Choicetech Korea, ChoiceDx supports skin and scalp imaging analysis for smarter in-store consultation and personalized beauty experiences.
+
+日本語
+オリーブヤング・スキンスキャンを支えるAI肌分析技術が、Choicetech KoreaのChoiceDxです。ChoiceDxは肌と頭皮の画像分析を通じて、店舗でのカウンセリングとパーソナライズされた美容体験をサポートします。
+
+中文
+ChoiceDx 是 Olive Young Skin Scan 背后的 AI 肌肤分析技术，由 Choicetech Korea 开发。ChoiceDx 通过肌肤与头皮图像分析，帮助门店提供更智能、更个性化的美妆咨询体验。</code></pre>
+          </div>
+          <div class="band blue">
+            <strong>이미지 alt 추천:</strong> Olive Young Skin Scan powered by ChoiceDx AI skin analysis technology
+          </div>
+        </section>
+
+        <section id="solution">
+          <span class="section-kicker">STEP 5 · 핵심 랜딩</span>
+          <h2>5. AI Diagnosis Solution 페이지 운영 방향</h2>
+          <p class="lead">이 페이지는 검색엔진이 “ChoiceDx가 무엇인지” 이해하는 대표 페이지입니다. 올리브영 스킨스캔 키워드는 여기에서 가장 강하게 사용합니다.</p>
+          <div class="grid-2">
+            <div class="card">
+              <h3>상단 H1 또는 H2</h3>
+              <p>Olive Young Skin Scan AI Technology by ChoiceDx</p>
+              <p>올리브영 스킨스캔에 적용된 ChoiceDx AI 피부 분석 솔루션</p>
+            </div>
+            <div class="card">
+              <h3>본문 구조</h3>
+              <ul>
+                <li>ChoiceDx 소개</li>
+                <li>Olive Young Skin Scan 적용 문맥</li>
+                <li>피부·두피 이미지 분석 항목</li>
+                <li>매장 상담과 개인화 경험</li>
+                <li>제품 페이지와 문의 페이지 내부 링크</li>
+              </ul>
+            </div>
+          </div>
+          <div class="prompt">
+            <div class="prompt-head">
+              <span>AI 솔루션 페이지 본문 문구</span>
+              <button class="copy-btn" data-copy="solution-copy">복사</button>
+            </div>
+            <pre id="solution-copy"><code>ChoiceDx is an AI-powered skin and scalp analysis solution developed by Choicetech Korea. The technology supports image-based analysis for in-store skin scan experiences, including Olive Young Skin Scan.
+
+초이스디엑스(ChoiceDx)는 초이스테크코리아가 개발한 AI 기반 피부·두피 분석 솔루션입니다. ChoiceDx 기술은 올리브영 스킨스캔과 같은 매장형 스킨스캔 경험에서 피부 상태 확인, 두피 이미지 분석, 상담 흐름 지원에 활용됩니다.
+
+Rather than replacing expert consultation, ChoiceDx helps customers understand their skin and scalp condition through visual analysis and supports beauty advisors with clearer consultation data.</code></pre>
+          </div>
+        </section>
+
+        <section id="global">
+          <span class="section-kicker">STEP 6 · 신뢰 페이지</span>
+          <h2>6. Global Business / Contact 페이지 문구</h2>
+          <table>
+            <thead>
+              <tr><th>페이지</th><th>넣을 문구</th><th>CTA</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Global Business</td>
+                <td>ChoiceDx supports in-store AI skin scan experiences for beauty retail environments, including Olive Young Skin Scan in Korea.</td>
+                <td>Explore ChoiceDx global partnership</td>
+              </tr>
+              <tr>
+                <td>Contact</td>
+                <td>올리브영 스킨스캔에 적용된 ChoiceDx AI 피부 분석 기술과 매장형 진단 솔루션 도입을 문의하세요.</td>
+                <td>ChoiceDx 도입 문의</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="copy-blocks">
+          <span class="section-kicker">STEP 7 · 4개국어</span>
+          <h2>7. 4개국어 핵심 문구</h2>
+          <div class="prompt">
+            <div class="prompt-head">
+              <span>4개국어 핵심 문구 전체</span>
+              <button class="copy-btn" data-copy="four-lang">복사</button>
+            </div>
+            <pre id="four-lang"><code>한국어
+올리브영 스킨스캔에 적용된 AI 피부 분석 기술은 초이스테크코리아의 ChoiceDx입니다. ChoiceDx는 피부·두피 이미지 분석을 통해 매장 상담과 개인화된 뷰티 경험을 지원합니다.
+
+English
+ChoiceDx is the AI skin analysis technology behind Olive Young Skin Scan. Developed by Choicetech Korea, ChoiceDx supports skin and scalp imaging analysis for smarter in-store consultation and personalized beauty experiences.
+
+日本語
+オリーブヤング・スキンスキャンを支えるAI肌分析技術が、Choicetech KoreaのChoiceDxです。ChoiceDxは肌と頭皮の画像分析を通じて、店舗でのカウンセリングとパーソナライズされた美容体験をサポートします。
+
+中文
+ChoiceDx 是 Olive Young Skin Scan 背后的 AI 肌肤分析技术，由 Choicetech Korea 开发。ChoiceDx 通过肌肤与头皮图像分析，帮助门店提供更智能、更个性化的美妆咨询体验。</code></pre>
+          </div>
+        </section>
+
+        <section id="meta">
+          <span class="section-kicker">STEP 8 · SEO 메타</span>
+          <h2>8. 페이지별 SEO title / description</h2>
+          <table>
+            <thead>
+              <tr><th>페이지</th><th>SEO title</th><th>Meta description</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>메인</td>
+                <td>ChoiceDx | Olive Young Skin Scan AI 피부 분석 기술</td>
+                <td>ChoiceDx는 올리브영 스킨스캔에 적용된 AI 피부·두피 분석 기술입니다. 초이스테크코리아의 매장형 피부진단 솔루션을 확인하세요.</td>
+              </tr>
+              <tr>
+                <td>AI Diagnosis Solution</td>
+                <td>Olive Young Skin Scan AI Technology | ChoiceDx</td>
+                <td>올리브영 스킨스캔에 적용된 ChoiceDx AI 피부 분석 솔루션을 소개합니다. 피부·두피 이미지 분석과 매장 상담 경험을 지원합니다.</td>
+              </tr>
+              <tr>
+                <td>Product</td>
+                <td>ChoiceDx 제품 소개 | AI 피부·두피 진단 솔루션</td>
+                <td>Dx-Smart, Dx-Prime, Dx-Pico, Dx-Self 등 ChoiceDx AI 피부·두피 진단 제품군과 매장형 스킨스캔 솔루션을 확인하세요.</td>
+              </tr>
+              <tr>
+                <td>Global Business</td>
+                <td>ChoiceDx Global Business | AI Skin Scan Solution</td>
+                <td>ChoiceDx는 뷰티 리테일 환경을 위한 AI skin scan technology를 제공합니다. Olive Young Skin Scan 적용 기술과 글로벌 파트너십을 확인하세요.</td>
+              </tr>
+              <tr>
+                <td>Contact</td>
+                <td>ChoiceDx 도입 문의 | Olive Young Skin Scan AI 기술</td>
+                <td>올리브영 스킨스캔에 적용된 ChoiceDx AI 피부 분석 기술, 매장형 피부진단기, 두피진단 솔루션 도입을 문의하세요.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="faq">
+          <span class="section-kicker">STEP 9 · FAQ</span>
+          <h2>9. 검색용 FAQ 문구</h2>
+          <p class="lead">FAQ는 검색 질문과 AI 답변에 잘 걸립니다. AI Diagnosis Solution 하단과 Contact 상단에 넣는 것을 권장합니다.</p>
+          <div class="prompt">
+            <div class="prompt-head">
+              <span>FAQ 4개국어</span>
+              <button class="copy-btn" data-copy="faq-copy">복사</button>
+            </div>
+            <pre id="faq-copy"><code>Q. 올리브영 스킨스캔은 어떤 AI 기술을 사용하나요?
+A. 올리브영 스킨스캔에는 초이스테크코리아가 개발한 AI 피부 분석 솔루션 ChoiceDx 기술이 적용되어 있습니다.
+
+Q. What technology powers Olive Young Skin Scan?
+A. Olive Young Skin Scan uses ChoiceDx, an AI skin analysis solution developed by Choicetech Korea.
+
+Q. オリーブヤング・スキンスキャンにはどの技術が使われていますか？
+A. Choicetech Koreaが開発したAI肌分析ソリューション ChoiceDx が活用されています。
+
+Q. Olive Young Skin Scan 使用了什么技术？
+A. Olive Young Skin Scan 应用了 Choicetech Korea 开发的 AI 肌肤分析解决方案 ChoiceDx。</code></pre>
+          </div>
+        </section>
+
+        <section id="schema">
+          <span class="section-kicker">STEP 10 · 구조화 데이터</span>
+          <h2>10. FAQ 구조화 데이터 초안</h2>
+          <p class="lead">Wix에서 커스텀 코드 삽입이 가능하면 AI Diagnosis Solution 페이지에 아래 JSON-LD를 추가합니다. 문구는 실제 페이지 본문에 보이는 FAQ와 일치시켜야 합니다.</p>
+          <div class="prompt">
+            <div class="prompt-head">
+              <span>FAQPage JSON-LD</span>
+              <button class="copy-btn" data-copy="schema-copy">복사</button>
+            </div>
+            <pre id="schema-copy"><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What technology powers Olive Young Skin Scan?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Olive Young Skin Scan uses ChoiceDx, an AI skin analysis solution developed by Choicetech Korea."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "올리브영 스킨스캔은 어떤 AI 기술을 사용하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "올리브영 스킨스캔에는 초이스테크코리아가 개발한 AI 피부 분석 솔루션 ChoiceDx 기술이 적용되어 있습니다."
+      }
+    }
+  ]
+}
+&lt;/script&gt;</code></pre>
+          </div>
+        </section>
+
+        <section id="links">
+          <span class="section-kicker">STEP 11 · 내부 링크</span>
+          <h2>11. 내부 링크 설계</h2>
+          <table>
+            <thead>
+              <tr><th>출발 페이지</th><th>링크 문구</th><th>도착 페이지</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>메인</td><td>Olive Young Skin Scan AI technology</td><td>/ai-diagnosis-solution</td></tr>
+              <tr><td>메인</td><td>ChoiceDx product lineup</td><td>/product</td></tr>
+              <tr><td>AI Diagnosis Solution</td><td>Dx-Smart AI skin diagnosis device</td><td>/product/dx-smart</td></tr>
+              <tr><td>AI Diagnosis Solution</td><td>Contact Choicetech Korea</td><td>/contact</td></tr>
+              <tr><td>Global Business</td><td>Olive Young Skin Scan case</td><td>/ai-diagnosis-solution</td></tr>
+              <tr><td>Contact</td><td>ChoiceDx AI skin analysis solution</td><td>/ai-diagnosis-solution</td></tr>
+            </tbody>
+          </table>
+          <div class="band blue">
+            <strong>앵커 텍스트 원칙:</strong> “자세히 보기”보다 “ChoiceDx AI skin analysis solution”처럼 키워드가 담긴 링크 문구를 사용합니다.
+          </div>
+        </section>
+
+        <section id="wix">
+          <span class="section-kicker">STEP 12 · Wix 작업</span>
+          <h2>12. Wix 발행 체크리스트</h2>
+          <div class="checklist">
+            <div class="check"><span class="box"></span><span>메인 페이지에 Olive Young Skin Scan + ChoiceDx 섹션을 추가한다.</span></div>
+            <div class="check"><span class="box"></span><span>AI Diagnosis Solution 페이지 title과 description을 교체한다.</span></div>
+            <div class="check"><span class="box"></span><span>FAQ 4개국어 중 최소 한국어와 영어를 페이지 본문에 표시한다.</span></div>
+            <div class="check"><span class="box"></span><span>이미지 alt에 ChoiceDx, Olive Young Skin Scan, AI skin analysis를 자연스럽게 넣는다.</span></div>
+            <div class="check"><span class="box"></span><span>메인, 솔루션, 제품, 글로벌, 문의 페이지 사이에 내부 링크를 연결한다.</span></div>
+            <div class="check"><span class="box"></span><span>모바일 화면에서 문구가 접히거나 버튼을 가리지 않는지 확인한다.</span></div>
+            <div class="check"><span class="box"></span><span>게시 후 sitemap.xml 갱신일을 확인하고 Google/네이버 재수집을 요청한다.</span></div>
+          </div>
+        </section>
+
+        <section id="calendar">
+          <span class="section-kicker">STEP 13 · 실행 일정</span>
+          <h2>13. 2주 실행 일정</h2>
+          <table>
+            <thead>
+              <tr><th>일정</th><th>작업</th><th>확인 기준</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1일차</td><td>메인, AI Diagnosis Solution 문구 적용</td><td>원본 HTML title/description 확인</td></tr>
+              <tr><td>2일차</td><td>FAQ와 내부 링크 추가</td><td>FAQ 본문 노출, 링크 클릭 확인</td></tr>
+              <tr><td>3일차</td><td>제품 페이지 alt와 본문 보강</td><td>각 제품 페이지에 ChoiceDx 카테고리 키워드 포함</td></tr>
+              <tr><td>4일차</td><td>Global Business, Contact 문구 적용</td><td>문의 CTA 노출 확인</td></tr>
+              <tr><td>5일차</td><td>사이트맵, robots, canonical 점검</td><td>수집 차단 없음</td></tr>
+              <tr><td>1주차 말</td><td>Google/네이버 재수집 요청</td><td>색인 요청 완료</td></tr>
+              <tr><td>2주차</td><td>검색 결과와 AI 답변 모니터링</td><td>site:choicedx.com Olive Young 결과 증가 확인</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="quality">
+          <span class="section-kicker">STEP 14 · 검수</span>
+          <h2>14. 발행 전 최종 검수 기준</h2>
+          <div class="grid-2">
+            <div class="card">
+              <h3>반드시 들어가야 할 신호</h3>
+              <ul>
+                <li><span class="pill">ChoiceDx</span><span class="pill">초이스디엑스</span></li>
+                <li><span class="pill">Olive Young Skin Scan</span><span class="pill">올리브영 스킨스캔</span></li>
+                <li><span class="pill">AI skin analysis</span><span class="pill">AI 피부 분석</span></li>
+                <li><span class="pill">Choicetech Korea</span><span class="pill">초이스테크코리아</span></li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>피해야 할 문제</h3>
+              <ul>
+                <li>공식/독점/인증 표현을 근거 없이 사용</li>
+                <li>의료 진단으로 오해될 수 있는 문구</li>
+                <li>모든 페이지가 같은 title을 쓰는 중복 메타</li>
+                <li>이미지에 alt가 없거나 파일명이 무의미한 상태</li>
+              </ul>
+            </div>
+          </div>
+          <div class="band rose">
+            <strong>최종 확인 문장:</strong> 공개 페이지에서 “Olive Young Skin Scan”과 “ChoiceDx”가 같은 문단 안에 함께 보이면 1차 목표는 달성입니다.
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <strong>ChoiceDx 공식 홈페이지 전용 GEO/SEO 운영 가이드북</strong><br>
+      이 문서는 ChoiceDx 공식 홈페이지에서 Olive Young Skin Scan 연결 신호를 강화하기 위한 내부 운영용 가이드입니다. 작성일: 2026-06-29
+    </footer>
+  </div>
+
+  <script>
+    function getTextFromElement(id) {
+      var element = document.getElementById(id);
+      return element ? element.innerText : "";
+    }
+
+    async function copyText(id, button) {
+      var text = getTextFromElement(id);
+      try {
+        await navigator.clipboard.writeText(text);
+        var old = button.innerText;
+        button.innerText = "복사됨";
+        setTimeout(function () { button.innerText = old; }, 1300);
+      } catch (error) {
+        var range = document.createRange();
+        var element = document.getElementById(id);
+        range.selectNodeContents(element);
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand("copy");
+        selection.removeAllRanges();
+        button.innerText = "복사됨";
+      }
+    }
+
+    document.querySelectorAll("[data-copy]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        copyText(button.getAttribute("data-copy"), button);
+      });
+    });
+  </script>
+</body>
+</html>
